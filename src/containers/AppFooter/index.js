@@ -11,7 +11,8 @@ const AppFooter = () => {
                                 <img src={logo} alt="" />
                                 <span>UKEXABG </span>
                             </a>
-                            <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus.</p>
+                            <p>The UKEX Approved Bodies Group (UKEX ABG) is responsible for coordination of application of the Equipment and Protective Systems
+                                 Intended for Use in Potentially Explosive Atmospheres Regulations 2016 (S.I. 2016/1107 as amended).</p>
                             <div className="social-links mt-3">
                                 <a href="#" className="twitter"><i className="bi bi-twitter"></i></a>
                                 <a href="#" className="facebook"><i className="bi bi-facebook"></i></a>
@@ -23,34 +24,32 @@ const AppFooter = () => {
                         <div className="col-lg-2 col-6 footer-links">
                             <h4>Useful Links</h4>
                             <ul>
-                                <li><i className="bi bi-chevron-right"></i> <a href="#">Home</a></li>
-                                <li><i className="bi bi-chevron-right"></i> <a href="#">About us</a></li>
-                                <li><i className="bi bi-chevron-right"></i> <a href="#">Services</a></li>
-                                <li><i className="bi bi-chevron-right"></i> <a href="#">Portfolio</a></li>
-                                <li><i className="bi bi-chevron-right"></i> <a href="#">Privacy policy</a></li>
+                                <li><i className="bi bi-chevron-right"></i> <a href="#home">Home</a></li>
+                                <li><i className="bi bi-chevron-right"></i> <a href="#about">About us</a></li>
+                                <li><i className="bi bi-chevron-right"></i> <a href="#membership">Membership</a></li>
+                                <li><i className="bi bi-chevron-right"></i> <a href="#publications">Publications</a></li>
+                                {/*  <li><i className="bi bi-chevron-right"></i> <a href="#">Co</a></li> */}
                             </ul>
                         </div>
 
                         <div className="col-lg-2 col-6 footer-links">
-                            <h4>Our Services</h4>
+                            {/*   <h4>Our Services</h4>
                             <ul>
                                 <li><i className="bi bi-chevron-right"></i> <a href="#">Web Design</a></li>
                                 <li><i className="bi bi-chevron-right"></i> <a href="#">Web Development</a></li>
                                 <li><i className="bi bi-chevron-right"></i> <a href="#">Product Management</a></li>
                                 <li><i className="bi bi-chevron-right"></i> <a href="#">Marketing</a></li>
                                 <li><i className="bi bi-chevron-right"></i> <a href="#">Graphic Design</a></li>
-                            </ul>
+                            </ul>*/}
                         </div>
 
                         <div className="col-lg-3 col-md-12 footer-contact text-center text-md-start">
                             <h4>Contact Us</h4>
-                            <p>
-                                A108 Adam Street <br />
-                                    New York, NY 535022<br />
-                                        United States <br /><br />
-                                <strong>Phone:</strong> +1 5589 55488 55<br />
-                                <strong>Email:</strong> info@example.com<br />
-                            </p>
+
+                            <p>Secretary to the UKEX Approved Bodies Group BEAMA Ltd <br />
+                                    Rotherwick House <br />
+                                    3 Thomas More Street <br />
+                                    London, E1W 1YZ</p>
 
                         </div>
 

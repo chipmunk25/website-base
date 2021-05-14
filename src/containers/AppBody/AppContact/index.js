@@ -21,7 +21,6 @@ const AppContact = () => {
                                     <i className="bi bi-geo-alt"></i>
                                     <h3> Secretary to the UKEX Approved Bodies Group BEAMA Ltd  </h3>
                                     <p>
-                                      
                                     Rotherwick House <br />
                                     3 Thomas More Street <br />
                                     London, E1W 1YZ</p>
