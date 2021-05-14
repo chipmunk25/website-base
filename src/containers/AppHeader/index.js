@@ -36,16 +36,16 @@ const AppHeader = () => {
             <div className="container-fluid container-xl d-flex align-items-center justify-content-between">
                 <a href="#hero" className="logo d-flex align-items-center">
                     <img src={logo} alt="" />
-                    <span>ECEIEM</span>
-                </a>
+                    <span>UKEXABG </span>
+                </a> 
 
                 <nav id="navbar" className="navbar">
                     <ul>
                         {/*   <li><a className="nav-link scrollto active" href="#hero">Home</a></li> */}
                         <li><a className="nav-link scrollto active" href="#about">About</a></li>
-                        <li><a className="nav-link scrollto" href="#services">Services</a></li>
+                        <li><a className="nav-link scrollto" href="#membership">Membership</a></li>
                         <li><a className="nav-link scrollto" href="#publications">Publications</a></li>
-                        <li><a className="nav-link scrollto" href="#team">Team</a></li>
+                    {/*     <li><a className="nav-link scrollto" href="#team">Team</a></li> */}
                         {/*  <li><a href="blog.html">Blog</a></li>
                          <li className="dropdown"><a href="#"><span>Drop Down</span> <i className="bi bi-chevron-down"></i></a>
                             <ul>

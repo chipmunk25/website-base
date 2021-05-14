@@ -13,7 +13,7 @@ const AppBody = () => {
             <AppAbout />
             <AppServices />
             <AppPublications />
-            <AppTeams />
+           {/*  <AppTeams /> */}
             <AppClient />
             <AppContact />
         </div>

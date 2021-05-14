@@ -2,16 +2,24 @@ import React from 'react';
 
 const AppServices = () => {
     return (
-        <section id="services" className="services">
+        <section id="membership" className="services">
 
             <div className="container" data-aos="fade-up">
 
                 <header className="section-header">
-                    <h2>Services</h2>
-                    <p>Veritatis et dolores facere numquam et praesentium</p>
+                  {/*   <h2>Membership</h2> */}
+                    <p>Membership</p>
                 </header>
-
                 <div className="row gy-4">
+                    <div className="col-lg-2"></div>
+                    <div className="col-lg-8 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="200">
+                        <p>Any UK Market Conformity Assessment Body designated as an Approved Body for the purposes of Equipment and Protective Systems Intended for Use in Potentially Explosive Atmospheres Regulations 2016 (S.I. 2016/1107 as amended)
+                        must commit in writing to becoming a Member of the UKEX ABG.</p>
+                    </div>
+                    <div className="col-lg-2"></div>
+                </div>
+
+                {/*   <div className="row gy-4">
 
                     <div className="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
                         <div className="service-box blue">
@@ -67,7 +75,7 @@ const AppServices = () => {
                         </div>
                     </div>
 
-                </div>
+                </div> */}
 
             </div>
 
