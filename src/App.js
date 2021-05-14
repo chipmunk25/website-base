@@ -1,23 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect,  } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'shards-ui/dist/css/shards.min.css';
+import "./assets/bootstrap-icons/bootstrap-icons.css"
+import "./assets/remixicon/remixicon.css" 
+import "./assets/css/style.css"
+import "./assets/css/file_manager.css"
+import "swiper/swiper.min.css";
+import "swiper/components/pagination/pagination.min.css"
+
+import MainApp from "./containers"
 
 function App() {
+  useEffect(() => {
+    AOS.init();
+    AOS.refresh();
+  }, []);
+
+
+
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <MainApp />
     </div>
   );
 }

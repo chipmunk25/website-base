@@ -1,0 +1,153 @@
+
+.file-manager__group-title {
+	display: block;
+	font-size: 0.75rem;
+	font-weight: 500;
+	margin: 1rem 0;
+}
+.file-manager-list td,
+.file-manager-list th {
+	border-left: none !important;
+	border-right: none !important;
+}
+.file-manager-list .file-manager__item-meta,
+.file-manager-list .file-manager__item-title {
+	margin: 0;
+}
+.file-manager-list .file-manager__item-title {
+	display: block;
+	font-size: 1rem;
+	line-height: 1.25rem;
+}
+.file-manager-list .file-manager__item-meta {
+	display: inline-block;
+	font-size: 0.6875rem;
+	color: #818ea3;
+	line-height: 0.8125rem;
+}
+.file-manager-list .file-manager__item-icon {
+	padding-right: 0 !important;
+}
+.file-manager-list .file-manager__item-icon div {
+	border-radius: 50%;
+	font-size: 0.9375rem;
+	text-align: center;
+	color: #818ea3;
+	width: 2.1875rem;
+	height: 2.1875rem;
+	line-height: 2.1875rem;
+	background: #f5f6f8;
+	box-shadow: 0 0 0 2px #fff, inset 0 0 3px rgba(0, 0, 0, 0.2);
+}
+.file-manager-list .file-manager__item-icon i {
+	top: 2px;
+}
+.file-manager-cards__search {
+	max-width: 200px;
+}
+@media (max-width: 991.98px) {
+	.file-manager-cards__search {
+		max-width: 100%;
+	}
+}
+.file-manager-cards .file-manager__item {
+	overflow: hidden;
+	position: relative;
+}
+.file-manager-cards .file-manager__item .card-footer {
+	display: flex;
+}
+.file-manager-cards .file-manager__item:hover {
+	cursor: pointer;
+}
+.file-manager-cards .file-manager__item:after,
+.file-manager-cards .file-manager__item:before {
+	content: '';
+	position: absolute;
+}
+.file-manager-cards .file-manager__item:before {
+	background-repeat: no-repeat;
+	background-position: 50%;
+	border-radius: 50%;
+	background-color: #007bff;
+	background-image: url(data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjRkZGIiBoZWlnaHQ9IjI0IiB3aWR0aD0iMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTAgMGgyNHYyNEgweiIgZmlsbD0ibm9uZSIvPjxwYXRoIGQ9Ik05IDE2LjE3TDQuODMgMTJsLTEuNDIgMS40MUw5IDE5IDIxIDdsLTEuNDEtMS40MXoiLz48L3N2Zz4=);
+	background-size: 1.0625rem;
+	width: 1.5625rem;
+	height: 1.5625rem;
+	right: 0.625rem;
+	top: -1.875rem;
+	-webkit-transform: rotate(-90deg);
+	transform: rotate(-90deg);
+	will-change: top, right, opacity, transform;
+	transition: top 0.15s cubic-bezier(0.27, 0.01, 0.38, 1.06), right 0.15s cubic-bezier(0.27, 0.01, 0.38, 1.06),
+		opacity 0.15s cubic-bezier(0.27, 0.01, 0.38, 1.06), -webkit-transform 0.15s cubic-bezier(0.27, 0.01, 0.38, 1.06);
+	transition: top 0.15s cubic-bezier(0.27, 0.01, 0.38, 1.06), right 0.15s cubic-bezier(0.27, 0.01, 0.38, 1.06),
+		opacity 0.15s cubic-bezier(0.27, 0.01, 0.38, 1.06), transform 0.15s cubic-bezier(0.27, 0.01, 0.38, 1.06);
+	transition: top 0.15s cubic-bezier(0.27, 0.01, 0.38, 1.06), right 0.15s cubic-bezier(0.27, 0.01, 0.38, 1.06),
+		opacity 0.15s cubic-bezier(0.27, 0.01, 0.38, 1.06), transform 0.15s cubic-bezier(0.27, 0.01, 0.38, 1.06),
+		-webkit-transform 0.15s cubic-bezier(0.27, 0.01, 0.38, 1.06);
+}
+.file-manager-cards .file-manager__item:after {
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 100;
+	border-radius: 0.625rem;
+	box-shadow: inset 0 0 0 0 rgba(0, 123, 255, 0.2);
+	will-change: box-shadow;
+	transition: box-shadow 0.25s ease-in-out;
+}
+.file-manager-cards .file-manager__item--selected:before {
+	top: 0.625rem;
+	-webkit-transform: rotate(0);
+	transform: rotate(0);
+}
+.file-manager-cards .file-manager__item--selected:after {
+	box-shadow: inset 0 0 3.125rem rgba(0, 123, 255, 0.2), inset 0 0 0.625rem rgba(0, 123, 255, 0.4),
+		inset 0 0 0 0.125rem rgba(0, 123, 255, 0.75);
+}
+.file-manager-cards .file-manager__item--directory:before {
+	width: 1.25rem;
+	height: 1.25rem;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
+	right: -1.25rem;
+}
+.file-manager-cards .file-manager__item--directory.file-manager__item--selected:before {
+	right: 10px;
+	background-size: 70%;
+}
+.file-manager-cards .file-manager__item-icon {
+	position: relative;
+	margin-right: 0.625rem;
+	font-size: 1.0625rem;
+	
+}
+.file-manager-cards .file-manager__item-icon i.material-icons {
+	top: 0;
+}
+.file-manager-cards .file-manager__item-title {
+	width: auto;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin: 0;
+	font-size: 0.875rem;
+	padding-right: 1.25rem;
+}
+.file-manager-cards .file-manager__item-size {
+	margin: auto 0;
+	font-size: 0.6875rem;
+}
+.file-manager-cards .file-manager__item-preview {
+	background: #f8f8f8;
+}
+.file-manager-cards .file-manager__item-preview img {
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+	display: table;
+	box-shadow: 0 0.125rem 0.5625rem rgba(0, 0, 0, 0.13);
+}
