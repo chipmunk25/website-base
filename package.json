@@ -7,14 +7,21 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "antd": "^4.16.2",
     "aos": "^2.3.4",
     "bootstrap": "^5.0.0",
     "node-sass": "4.14.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
+    "react-router-redux": "^4.0.8",
     "react-scripts": "4.0.3",
     "react-slick": "^0.28.1",
+    "redux": "^4.1.0",
+    "redux-actions": "^2.6.5",
+    "redux-saga": "^1.1.3",
+    "redux-thunk": "^2.3.0",
     "shards-react": "^1.0.3",
     "shards-ui": "^3.0.0",
     "slick-carousel": "^1.8.1",
@@ -44,5 +51,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "customize-cra": "^1.0.0",
+    "react-app-rewired": "^2.1.8"
   }
 }
