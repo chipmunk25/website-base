@@ -17,6 +17,8 @@ import "./assets/css/file_manager.css"
 import "swiper/swiper.min.css";
 import "swiper/components/pagination/pagination.min.css"
 
+import 'antd/dist/antd.css';
+import "./assets/css/util.css"
 const store = configureStore(/* provide initial state if any */);
 
 const NextApp = () =>

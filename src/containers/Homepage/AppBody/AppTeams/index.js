@@ -1,10 +1,10 @@
 import React from 'react';
-import Team1 from "../../../assets/img/team/team-1.jpg"
-import Team2 from "../../../assets/img/team/team-2.jpg"
-import Team3 from "../../../assets/img/team/team-3.jpg"
-import Team4 from "../../../assets/img/team/team-4.jpg"
+import Team1 from "assets/img/team/team-1.jpg"
+import Team2 from "assets/img/team/team-2.jpg"
+import Team3 from "assets/img/team/team-3.jpg"
+import Team4 from "assets/img/team/team-4.jpg"
 const AppTeams = () => {
-    return (
+    return (  
         <section id="team" className="team">
 
             <div className="container" data-aos="fade-up">

@@ -1,4 +1,4 @@
-import { ON_SHOW_LOADER, ON_HIDE_LOADER, ON_SHOW_MODAL, ON_HIDE_MODAL, TOGGLE_COLLAPSED_NAV } from "../Actions/constants"
+import { ON_SHOW_LOADER, ON_HIDE_LOADER, ON_SHOW_MODAL, ON_HIDE_MODAL, TOGGLE_COLLAPSED_NAV } from "../actions/constants"
 const INIT_STATE = {
     loader: false,
     modal: false,

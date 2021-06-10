@@ -3,7 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import MainApp from "./MainApp";
 
 import { Redirect, Route, Switch, useLocation, useRouteMatch, useHistory } from "react-router-dom";
-import Homepage from './Homepage';
+import Homepage from '../Homepage';
+import SignIn from '../SignIn';
+import { setInitUrl } from "appRedux/actions/auth";
 const RestrictedRoute = ({ component: Component, location, authUser, ...rest }) =>
     <Route
         {...rest}
@@ -11,7 +13,7 @@ const RestrictedRoute = ({ component: Component, location, authUser, ...rest }) 
             authUser
                 ? <Component {...props} />
                 : <Redirect
-                    to={{ pathname: '/signin', state: { from: location } }}
+                    to={{ pathname: '/home', state: { from: location } }}
                 />}
     />;
 
@@ -33,8 +35,8 @@ const App = () => {
     useEffect(() => {
         if (location.pathname === '/') {
             if (authUser === null) {
-                history.push('/signin');
-            } else if (initURL === '' || initURL === '/' || initURL === '/signin') {
+                history.push('/home');
+            } else if (initURL === '' || initURL === '/' || initURL === '/home') {
                 history.push('/dashboard');
             } else {
                 history.push(initURL);

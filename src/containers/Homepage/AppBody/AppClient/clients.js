@@ -3,14 +3,14 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ClientItem from "./clientItem"
-import Client1 from "../../../assets/img/clients/client-1.png"
-import Client2 from "../../../assets/img/clients/client-2.png"
-import Client3 from "../../../assets/img/clients/client-3.png"
-import Client4 from "../../../assets/img/clients/client-4.png"
-import Client5 from "../../../assets/img/clients/client-5.png"
-import Client6 from "../../../assets/img/clients/client-6.png"
-import Client7 from "../../../assets/img/clients/client-7.png"
-import Client8 from "../../../assets/img/clients/client-8.png"
+import Client1 from "assets/img/clients/client-1.png"
+import Client2 from "assets/img/clients/client-2.png"
+import Client3 from "assets/img/clients/client-3.png"
+import Client4 from "assets/img/clients/client-4.png"
+import Client5 from "assets/img/clients/client-5.png"
+import Client6 from "assets/img/clients/client-6.png"
+import Client7 from "assets/img/clients/client-7.png"
+import Client8 from "assets/img/clients/client-8.png"
 const Clients = () => {
     const options = {
         infinite: true,

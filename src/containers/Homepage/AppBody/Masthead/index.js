@@ -1,5 +1,5 @@
 import React from 'react';
-import heroImg from "../../../assets/img/hero-img.png"
+import heroImg from "assets/img/hero-img.png"
 const Masthead = () => {
     return (
         <section id="home" className="hero d-flex align-items-center">

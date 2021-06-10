@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import logo from "../../assets/img/logo.png"
+import logo from "assets/img/logo.png"
 const AppHeader = () => {
     const [isSticky, setSticky] = useState(false);
     const [isToggled, setToggle] = useState(false);

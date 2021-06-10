@@ -10,8 +10,11 @@
     "antd": "^4.16.2",
     "aos": "^2.3.4",
     "bootstrap": "^5.0.0",
+    "connected-react-router": "^6.9.1",
+    "jwt-decode": "^3.1.2",
     "node-sass": "4.14.1",
     "react": "^17.0.2",
+    "react-custom-scrollbars": "^4.2.1",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
@@ -29,9 +32,10 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "react-app-rewired start",
+    "ebuild": "yarn build && node_modules/.bin/build",
+    "build": "rimraf ./build && react-app-rewired build && rimraf ./build/**/*.map",
+    "test": "react-app-rewired --env=jsdom",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

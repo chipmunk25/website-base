@@ -1,5 +1,5 @@
 import React from 'react';
-import about from "../../../assets/img/about.jpg"
+import about from "assets/img/about.jpg"
 const AppAbout = () => {
     return (
         <section id="about" className="about">

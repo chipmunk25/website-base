@@ -1,4 +1,4 @@
-import { WINDOW_WIDTH } from "../Actions/constants";
+import { WINDOW_WIDTH } from "../actions/constants";
 
 import {
   LAYOUT_TYPE,
@@ -8,7 +8,7 @@ import {
   THEME_COLOR,
   THEME_TYPE,
   THEME_TYPE_SEMI_DARK,
-} from "../Actions/ThemeSetting";
+} from "../actions/ThemeSetting";
 
 const initialSettings = {
   navStyle: NAV_STYLE_FIXED,

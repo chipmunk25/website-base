@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col, Card, CardBody, CardFooter } from "shards-react";
-import previewImage from "../../../assets/img/document-preview-1.jpg"
+import previewImage from "assets/img/document-preview-1.jpg"
 const DocumentItem = () => {
     return (
         <Row>
