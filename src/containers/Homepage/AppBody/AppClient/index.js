@@ -4,7 +4,7 @@ import Clients from './clients';
 
 const AppClient = () => {
     return (
-        <section id="clients" className="clients">
+        <section id="clients" className=" section clients">
 
             <div className="container" data-aos="fade-up">
 

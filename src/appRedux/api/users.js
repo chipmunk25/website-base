@@ -41,12 +41,11 @@ export function* UpdateUser(token, id, data) {
 }
 
 
-export function* getUsersFromApi(token, { branch_id, company_id, user_status }) {
+export function* getUsersFromApi(token, {  company_id, del_flg }) {
     const params = new URLSearchParams();
     params.append('company_id', company_id)
-    params.append('branch_id', branch_id)
     try {
-        return yield API().get(`/users/${user_status}`, { params, headers: { Authorization: "Bearer " + token } })
+        return yield API().get(`/users/${del_flg}`, { params, headers: { Authorization: "Bearer " + token } })
     } catch (error) {
         return yield error.response
     }

@@ -1,8 +1,17 @@
-import React from "react"
+import React, { useEffect } from "react"
 import LoginForm from './loginform';
 
-
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 const SignIn = () => {
+    const { authUser } = useSelector(({ auth }) => auth);
+    const history = useHistory();
+
+    useEffect(() => {
+        if (authUser !== null) {
+            history.push('/');
+        }
+    });
 
     return (
         <div className="login-wrapper">

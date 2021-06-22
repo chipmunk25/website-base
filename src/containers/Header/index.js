@@ -24,10 +24,7 @@ const PageHeader = () => {
 
   const { width, navStyle } = useSelector(({ settings }) => settings);
   const { navCollapsed } = useSelector(({ common }) => common);
-  const { smsbal } = useSelector(({ auth }) => auth);
-  useEffect(() => {
-    dispatch(CheckSMSBal())
-  }, [])
+
  
   return (
     <Header className="cs-header">
@@ -49,7 +46,7 @@ const PageHeader = () => {
         <CompanyDetails />
       </div>
       <div style={{ marginLeft: 100 }}>
-        <h3 className="gx-text-geekblue"> SMS Bal: {smsbal}</h3>
+      
 
       </div>
       <ul className="gx-header-notifications gx-ml-auto">

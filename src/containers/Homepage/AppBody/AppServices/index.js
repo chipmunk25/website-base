@@ -2,7 +2,7 @@ import React from 'react';
 
 const AppServices = () => {
     return (
-        <section id="membership" className="services">
+        <section id="membership" className=" section services">
 
             <div className="container" data-aos="fade-up">
 

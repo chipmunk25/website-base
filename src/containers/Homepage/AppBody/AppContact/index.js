@@ -2,7 +2,7 @@ import React from 'react';
 
 const AppContact = () => {
     return (
-        <section id="contact" className="contact">
+        <section id="contact" className=" section contact">
 
             <div className="container" data-aos="fade-up">
 

@@ -3,7 +3,7 @@ import React from 'react';
 import DocumentItem from './documentComponent';
 const AppPublications = () => {
     return (
-        <section id="publications" className="values file-manager file-manager-cards">
+        <section id="publications" className=" section values file-manager file-manager-cards">
             <div className="container" data-aos="fade-up">
                 <header className="section-header">
                     <h2>Publications</h2>

@@ -1,5 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import logo from "assets/img/logo.png"
+
+import { Link } from 'react-router-dom';
+
 const AppHeader = () => {
     const [isSticky, setSticky] = useState(false);
     const [isToggled, setToggle] = useState(false);
@@ -70,7 +73,10 @@ const AppHeader = () => {
                             </ul>
                         </li> */}
                         <li onClick={closeHandler}><a className="nav-link scrollto" href="#contact">Contact</a></li>
-                        <li onClick={closeHandler}> <a className="getstarted scrollto" href="#about">Members signin</a></li>
+                        {/*  <li onClick={closeHandler}> <a className="getstarted scrollto" href="#about">Members signin</a></li> */}
+                        <li  >
+                            <Link to={`signin`}> <span className="getstarted">Members signin</span></Link>
+                        </li>
                     </ul>
                     <i className={isToggled ? "bi bi-x mobile-nav-toggle" : "bi bi-list mobile-nav-toggle"} onClick={toggleHandler}></i>
                 </nav>

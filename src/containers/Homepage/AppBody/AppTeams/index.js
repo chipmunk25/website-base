@@ -5,7 +5,7 @@ import Team3 from "assets/img/team/team-3.jpg"
 import Team4 from "assets/img/team/team-4.jpg"
 const AppTeams = () => {
     return (  
-        <section id="team" className="team">
+        <section id="team" className=" section team">
 
             <div className="container" data-aos="fade-up">
 

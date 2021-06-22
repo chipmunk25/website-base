@@ -39,7 +39,7 @@ h6 {
 /*--------------------------------------------------------------
 # Sections
 --------------------------------------------------------------*/
-section {
+.homepage section {
   padding: 60px 0;
   overflow: hidden;
 }
@@ -2431,7 +2431,7 @@ section {
 .login-form {
   position: relative;
   max-width: 320px;
-  height: 350px;
+  height: 400px;
   margin-top: 80px;
   padding: 30px 30px 32px 30px;
   text-align: center;
@@ -2461,7 +2461,7 @@ section {
 
 .login-form .btn-get-started {
   line-height: 0;
- /*  padding: 15px 40px; */
+  /*  padding: 15px 40px; */
   border-radius: 4px;
   transition: 0.5s;
   color: #fff;
@@ -2484,4 +2484,30 @@ section {
 
 .login-form .btn-get-started:hover i {
   transform: translateX(5px);
+}
+
+.ant-layout {
+  background: #f9f7ef !important;
+}
+.ant-menu.ant-menu-dark,
+.ant-menu-dark .ant-menu-sub,
+.ant-menu.ant-menu-dark .ant-menu-sub {
+  color: #97b8c7;
+  background: #062d40;
+}
+.gx-layout-sider-dark {
+  color: #97b8c7 !important;
+}
+.ant-menu-dark .ant-menu-item > a {
+  color: #97b8c7;
+}
+.site-layout-background {
+  background: #fff !important;
+}
+.ant-table-tbody > tr.ant-table-row-level-0:hover > td {
+  background: unset;
+}
+.cs-header {
+  height: 70px !important;
+  background: #fff !important;
 }

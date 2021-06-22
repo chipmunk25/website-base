@@ -2,7 +2,7 @@ import React from 'react';
 import heroImg from "assets/img/hero-img.png"
 const Masthead = () => {
     return (
-        <section id="home" className="hero d-flex align-items-center">
+        <section id="home" className=" section hero d-flex align-items-center">
             <div className="container">
                 <div className="row">
                     <div className="col-lg-6 d-flex flex-column justify-content-center">

@@ -30,6 +30,7 @@ function* LoginUser(data) {
 function* SignInUserHandler({ payload }) {
     try {
         const signInUser = yield call(LoginUser, payload);
+
         if (signInUser) {
             if (signInUser.status === 200) {
                 yield put(hideAuthLoader())
@@ -75,7 +76,7 @@ function* signOut({ payload }) {
         sessionStorage.removeItem('role_id');
         const user = yield call(Logout, sessionStorage.getItem('token'), payload);
         sessionStorage.removeItem('token');
-        console.log(user)
+     //   console.log(user)
         if (user.status === 200) {
             yield AlertMessage("success", user.data.message, "success", 2)
         }
@@ -90,26 +91,26 @@ function* chgPwd(data) {
 }
 
 function* ChangePasswordHandler({ payload }) {
-    const users = yield call(chgPwd, payload)
+    const res = yield call(chgPwd, payload)
     yield put(hideAuthLoader())
-    if (users.status === 201) {
-        yield put(successUpdatePassword(users.data.user))
+    if (res.status === 201) {
+        yield put(successUpdatePassword(res.data.result))
         openNotificationWithIcon("success", 'Success', 'Record Saved Successfully')
     }
     else {
-        openNotificationWithIcon('error', 'Error', users.error)
+        openNotificationWithIcon('error', 'Error', res.error)
     }
 }
 
 function* ResetPwdHandler({ payload }) {
-    const users = yield call(ResetPswd, sessionStorage.getItem('token'), payload.email, payload)
+    const res = yield call(ResetPswd, sessionStorage.getItem('token'), payload.email, payload)
     yield put(hideAuthLoader())
-    if (users.status === 201) {
-        yield put(successResetPassword(users.data.user))
+    if (res.status === 201) {
+        yield put(successResetPassword(res.data.result))
         openNotificationWithIcon("success", 'Success', 'Record Updated Successfully')
     }
     else {
-        openNotificationWithIcon('error', 'Error', users.error)
+        openNotificationWithIcon('error', 'Error', res.error)
     }
 }
 
@@ -119,32 +120,32 @@ function* UpdateExistUser(data) {
 }
 
 function* UpdateUserInfoHandler({ payload }) {
-    const users = yield call(UpdateExistUser, payload)
+    const res = yield call(UpdateExistUser, payload)
     yield put(hideAuthLoader())
-    if (users.status === 201) {
-        if (parseInt(users.data.user.id) === parseInt(sessionStorage.getItem('user_id'))) {
-            yield sessionStorage.setItem('user_info', JSON.stringify(users.data.user));
-            yield put(successUpdateUser(users.data.user))
+    if (res.status === 201) {
+        if (parseInt(res.data.result.id) === parseInt(sessionStorage.getItem('user_id'))) {
+            yield sessionStorage.setItem('user_info', JSON.stringify(res.data.result));
+            yield put(successUpdateUser(res.data.result))
         }
-        yield put(successUpdateUsers(users.data.user))
+        yield put(successUpdateUsers(res.data.result))
         openNotificationWithIcon("success", 'Success', 'Record Saved Successfully')
         yield put(hideModal())
     }
     else {
-        openNotificationWithIcon('error', 'Error', users.error)
+        openNotificationWithIcon('error', 'Error', res.error)
     }
 }
 
 function* UpdateUsersInfoHandler({ payload }) {
-    const users = yield call(UpdateExistUser, payload)
+    const res = yield call(UpdateExistUser, payload)
     yield put(hideAuthLoader())
-    if (users.status === 201) {
-        yield put(successUpdateUsers(users.data.user))
+    if (res.status === 201) {
+        yield put(successUpdateUsers(res.data.result))
         openNotificationWithIcon("success", 'Success', 'Record Saved Successfully')
         yield put(hideModal())
     }
     else {
-        openNotificationWithIcon('error', 'Error', users.error)
+        openNotificationWithIcon('error', 'Error', res.error)
     }
 }
 
@@ -152,29 +153,29 @@ function* UpdateUsersInfoHandler({ payload }) {
 
 
 function* SMSBalHandler() {
-    let company = yield call(getSMSBalFromApi, sessionStorage.getItem('token'))
-    if (company) {
-        if (company.status === 200) {
-            yield put(CheckSMSBalSuccess({ smsbal: company.data.balance }))
+    let res = yield call(getSMSBalFromApi, sessionStorage.getItem('token'))
+    if (res) {
+        if (res.status === 200) {
+            yield put(CheckSMSBalSuccess({ smsbal: res.data.balance }))
             yield put(hideAuthLoader())
         } else {
-            openNotificationWithIcon('error', 'Error', company.error)
+            openNotificationWithIcon('error', 'Error', res.error)
         }
     } else {
         openNotificationWithIcon('error', 'Internet Error', "Check your Internet, Cannot Load Information Due to No Internet")
     }
 }
 function* GetUsersHandler({ payload }) {
-    let company = yield call(getUsersFromApi, sessionStorage.getItem('token'), payload)
-    // console.log(company)
-    if (company) {
-        if (company.status === 200) {
+    let res = yield call(getUsersFromApi, sessionStorage.getItem('token'), payload)
+     console.log(res)
+    if (res) {
+        if (res.status === 200) {
             yield put(successGetUsers({
-                userLists: company.data.users,
+                userLists: res.data.result,
             }));
             yield put(hideAuthLoader())
         } else {
-            openNotificationWithIcon('error', 'Error', company.error)
+            openNotificationWithIcon('error', 'Error', res.error)
         }
     } else {
         openNotificationWithIcon('error', 'Internet Error', "Check your Internet, Cannot Load Information Due to No Internet")
@@ -182,16 +183,16 @@ function* GetUsersHandler({ payload }) {
 }
 
 function* GetRolesHandler({ payload }) {
-    let company = yield call(getRoleFromApi, sessionStorage.getItem('token'), payload)
-    // console.log(company)
-    if (company) {
-        if (company.status === 200) {
+    let res = yield call(getRoleFromApi, sessionStorage.getItem('token'), payload)
+     console.log(res)
+    if (res) {
+        if (res.status === 200) {
             yield put(successGetRole({
-                roleLists: company.data.roles,
+                roleLists: res.data.result,
             }));
             yield put(hideAuthLoader())
         } else {
-            openNotificationWithIcon('error', 'Error', company.error)
+            openNotificationWithIcon('error', 'Error', res.error)
         }
     } else {
         openNotificationWithIcon('error', 'Internet Error', "Check your Internet, Cannot Load Information Due to No Internet")
@@ -200,16 +201,16 @@ function* GetRolesHandler({ payload }) {
 
 
 function* GetBranchHandler({ payload }) {
-    let company = yield call(getBranchesFromApi, sessionStorage.getItem('token'), payload)
-    // console.log(company)
-    if (company) {
-        if (company.status === 200) {
+    let res = yield call(getBranchesFromApi, sessionStorage.getItem('token'), payload)
+    // console.log(res)
+    if (res) {
+        if (res.status === 200) {
             yield put(successGetBranch({
-                branchLists: company.data.branch,
+                branchLists: res.data.branch,
             }));
             yield put(hideAuthLoader())
         } else {
-            openNotificationWithIcon('error', 'Error', company.error)
+            openNotificationWithIcon('error', 'Error', res.error)
         }
     } else {
         openNotificationWithIcon('error', 'Internet Error', "Check your Internet, Cannot Load Information Due to No Internet")
@@ -266,7 +267,7 @@ function* SaveUserHandler({ payload }) {
     yield put(hideAuthLoader())
     yield put(hideModal())
     if (branch.status === 201) {
-        yield put(successSaveUser(branch.data.users))
+        yield put(successSaveUser(branch.data.result))
         openNotificationWithIcon("success", 'Success', 'Record Saved Successfully')
     } else if (branch.status === 422) {
         openNotificationWithIcon('error', 'Error', branch.data.message)
@@ -284,7 +285,7 @@ function* DeleteUserHandler({ payload }) {
     yield put(hideAuthLoader())
     yield put(hideModal())
     if (branch.status === 201) {
-        yield put(successDeleteUser(branch.data.user))
+        yield put(successDeleteUser(branch.data.result))
         openNotificationWithIcon("success", 'Success', 'Record Deleted Successfully')
     }
     else {
@@ -294,16 +295,16 @@ function* DeleteUserHandler({ payload }) {
 
 
 function* GetRoleHandler({ payload }) {
-    let users = yield call(getRoleFromApi, sessionStorage.getItem('token'), payload)
+    let res = yield call(getRoleFromApi, sessionStorage.getItem('token'), payload)
 
-    if (users) {
-        if (users.status === 200) {
+    if (res) {
+        if (res.status === 200) {
             yield put(successGetRole({
-                roleLists: users.data.roles,
+                roleLists: res.data.result,
             }));
             yield put(hideAuthLoader())
         } else {
-            openNotificationWithIcon('error', 'Error', users.error)
+            openNotificationWithIcon('error', 'Error', res.error)
         }
     } else {
         openNotificationWithIcon('error', 'Internet Error', "Check your Internet, Cannot Load Information Due to No Internet")
@@ -313,59 +314,59 @@ function* GetRoleHandler({ payload }) {
 
 function* SaveRoleHandler({ payload }) {
     // console.log(payload)
-    const users = yield call(CreateRole, sessionStorage.getItem('token'), payload)
-    // console.log(users)
+    const res = yield call(CreateRole, sessionStorage.getItem('token'), payload)
+    // console.log(res)
     yield put(hideAuthLoader())
     yield put(hideModal())
-    if (users.status === 201) {
-        yield put(successSaveRole(users.data.role))
+    if (res.status === 201) {
+        yield put(successSaveRole(res.data.result))
         openNotificationWithIcon("success", 'Success', 'Record Saved Successfully')
-    } else if (users.status === 422) {
-        openNotificationWithIcon('error', 'Error', users.data.message)
+    } else if (res.status === 422) {
+        openNotificationWithIcon('error', 'Error', res.data.message)
     }
     else {
-        openNotificationWithIcon('error', 'Error', users.error)
+        openNotificationWithIcon('error', 'Error', res.error)
     }
 }
 
 function* UpdateRoleHandler({ payload }) {
-    const users = yield call(ChangeRole, sessionStorage.getItem('token'), payload)
+    const res = yield call(ChangeRole, sessionStorage.getItem('token'), payload)
     yield put(hideAuthLoader())
     yield put(hideModal())
-    if (users.status === 201) {
-        yield put(successUpdateRole(users.data.role))
+    if (res.status === 201) {
+        yield put(successUpdateRole(res.data.result))
         openNotificationWithIcon("success", 'Success', 'Record Updated Successfully')
     }
     else {
-        openNotificationWithIcon('error', 'Error', users.error)
+        openNotificationWithIcon('error', 'Error', res.error)
     }
 }
 
 function* DeleteRoleHandler({ payload }) {
-    const users = yield call(RemoveRole, sessionStorage.getItem('token'), payload)
+    const res = yield call(RemoveRole, sessionStorage.getItem('token'), payload)
     yield put(hideAuthLoader())
     yield put(hideModal())
-    if (users.status === 201) {
-        yield put(successDeleteRole(users.data.role))
+    if (res.status === 201) {
+        yield put(successDeleteRole(res.data.result))
         openNotificationWithIcon("success", 'Success', 'Record Deleted Successfully')
     }
     else {
-        openNotificationWithIcon('error', 'Error', users.error)
+        openNotificationWithIcon('error', 'Error', res.error)
     }
 }
 
 
 function* GetPermissionHandler({ payload }) {
-    let users = yield call(getPermissionFromApi, sessionStorage.getItem('token'), payload)
-    //  console.log(users) 
-    if (users) {
-        if (users.status === 200) {
+    let res = yield call(getPermissionFromApi, sessionStorage.getItem('token'), payload)
+    //  console.log(res) 
+    if (res) {
+        if (res.status === 200) {
             yield put(successGetPermission({
-                permissionLists: users.data.permissions,
+                permissionLists: res.data.result,
             }));
             yield put(hideAuthLoader())
         } else {
-            openNotificationWithIcon('error', 'Error', users.error)
+            openNotificationWithIcon('error', 'Error', res.error)
         }
     } else {
         openNotificationWithIcon('error', 'Internet Error', "Check your Internet, Cannot Load Information Due to No Internet")
@@ -374,45 +375,45 @@ function* GetPermissionHandler({ payload }) {
 
 
 function* SavePermissionHandler({ payload }) {
-    // console.log(payload)
-    const users = yield call(CreatePermission, sessionStorage.getItem('token'), payload)
-    //  console.log(users) 
+     console.log(payload)
+    const res = yield call(CreatePermission, sessionStorage.getItem('token'), payload)
+      console.log(res) 
     yield put(hideAuthLoader())
     yield put(hideModal())
-    if (users.status === 201) {
-        yield put(successSavePermission(users.data.permission))
+    if (res.status === 201) {
+        yield put(successSavePermission(res.data.result))
         openNotificationWithIcon("success", 'Success', 'Record Saved Successfully')
-    } else if (users.status === 422) {
-        openNotificationWithIcon('error', 'Error', users.data.message)
+    } else if (res.status === 422) {
+        openNotificationWithIcon('error', 'Error', res.data.message)
     }
     else {
-        openNotificationWithIcon('error', 'Error', users.error)
+        openNotificationWithIcon('error', 'Error', res.error)
     }
 }
 
 function* UpdatePermissionHandler({ payload }) {
-    const users = yield call(ChangePermission, sessionStorage.getItem('token'), payload)
+    const res = yield call(ChangePermission, sessionStorage.getItem('token'), payload)
     yield put(hideAuthLoader())
     yield put(hideModal())
-    if (users.status === 201) {
-        yield put(successUpdatePermission(users.data.permission))
+    if (res.status === 201) {
+        yield put(successUpdatePermission(res.data.result))
         openNotificationWithIcon("success", 'Success', 'Record Updated Successfully')
     }
     else {
-        openNotificationWithIcon('error', 'Error', users.error)
+        openNotificationWithIcon('error', 'Error', res.error)
     }
 }
 
 function* DeletePermissionHandler({ payload }) {
-    const users = yield call(RemovePermission, sessionStorage.getItem('token'), payload)
+    const res = yield call(RemovePermission, sessionStorage.getItem('token'), payload)
     yield put(hideAuthLoader())
     yield put(hideModal())
-    if (users.status === 201) {
-        yield put(successDeletePermission(users.data.permission))
+    if (res.status === 201) {
+        yield put(successDeletePermission(res.data.result))
         openNotificationWithIcon("success", 'Success', 'Record Deleted Successfully')
     }
     else {
-        openNotificationWithIcon('error', 'Error', users.error)
+        openNotificationWithIcon('error', 'Error', res.error)
     }
 }
 
