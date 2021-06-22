@@ -1,20 +1,19 @@
 import React, { useEffect } from 'react';
-import about from "assets/img/about.jpg"
 
 import { useDispatch, useSelector } from 'react-redux';
 
 import { requestGetAbout } from "appRedux/actions/webpage"
 import { showAuthLoader, } from "appRedux/actions/common"
 
-import convertFromHtmlTOTextfield from "./ConvertToText"
 
-import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
+import ReactHtmlParser from 'react-html-parser';
 
+import { FILE_URL } from 'appRedux/api/root';
 
 const AppAbout = () => {
     const dispatch = useDispatch()
     const { aboutLists } = useSelector(({ webpages }) => webpages);
-    console.log(aboutLists)
+    //  console.log(aboutLists)
     useEffect(() => {
         dispatch(showAuthLoader())
         dispatch(requestGetAbout({ company_id: 1, del_flg: 0 }))
@@ -43,7 +42,7 @@ const AppAbout = () => {
                                 </div>
                             </div>
                             <div className="col-lg-6 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="200">
-                                <img src={about} className="img-fluid" alt="" />
+                                <img src={FILE_URL + item.aboutImage} className="img-fluid" alt="" />
                             </div>
                         </div>
                     ))

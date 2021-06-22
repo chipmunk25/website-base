@@ -1,79 +1,87 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Card, Form, Input, Row, Col, Button } from "antd";
 import { SaveOutlined } from "@ant-design/icons"
 
-import { convertToRaw, EditorState } from "draft-js";
+import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
+import { convertToRaw, ContentState, convertFromHTML, EditorState, convertFromRaw } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import draftToHtml from "draftjs-to-html";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 import ImageUploader from "./ImageUpload";
 
-import { requestSaveAbout } from "appRedux/actions/webpage"
+import { requestSaveAbout, requestGetAbout } from "appRedux/actions/webpage"
 import { showAuthLoader, } from "appRedux/actions/common"
+import { FILE_URL } from '../../appRedux/api/root';
+
 
 const About = () => {
     const dispatch = useDispatch()
     const { authUser, user } = useSelector(({ auth }) => auth);
-
+    const { aboutLists } = useSelector(({ webpages }) => webpages);
     const [state, setState] = useState({
         description: EditorState.createEmpty(),
-        aboutImage: null,
+        aboutImage: null, id: undefined,
+        url: ""
     })
 
-
-    /*   const handleChange = (value) => {
-          setState({ ...state, aboutImage: value })
-      } */
-
+    const convertFromHtmlTOTextfield = content => {
+        if (content === null) {
+            return EditorState.createEmpty();
+        } else {
+            const blocksFromHTML = convertFromHTML(content);
+            const contentState = ContentState.createFromBlockArray(blocksFromHTML);
+            return EditorState.createWithContent(contentState);
+        }
+    };
     const onEditorStateChange = (description) => {
-        setState({
-            ...state,
-            description,
-        });
+        setState({ ...state, description, });
     };
     const onFinishFailed = errorInfo => {
         // console.log(errorInfo)
     }
+
+    const [form] = Form.useForm();
+    console.log(aboutLists)
+    useEffect(() => {
+        dispatch(showAuthLoader())
+        dispatch(requestGetAbout({ company_id: 1, del_flg: 0 }))
+    }, [])
+
+    useEffect(() => {
+        const detail = aboutLists[0]
+        console.log(detail)
+        if (detail) {
+            const description = convertFromHtmlTOTextfield(detail.description)
+            form.setFieldsValue({
+                title: detail.title,
+                subtitle: detail.subtitle,
+                url: detail.url,
+            });
+            setState({ ...state, id: detail.id, description, url: FILE_URL + detail.aboutImage, })
+        }
+
+    }, [aboutLists])
+
     const SaveHandler = async (record) => {
         const data = {
-            ...record,
-            ...state,
+            ...record, ...state,
             description: ConvertToText(state.description),
-            del_flg: 0,
-            created_user: authUser,
-            company_id: user.company_id,
-            group_name: 'about'
+            del_flg: 0, created_user: authUser,
+            company_id: user.company_id, group_name: 'about'
         }
-        console.log(data)
+
         dispatch(showAuthLoader())
         dispatch(requestSaveAbout(data))
-        /*   const operation = `Created a ledger, ${record.ac_head}`
-          const user_ipaddress = await getClientIp()
-          const logs = {
-              user_ipaddress,
-              company_id: user.company_id,
-              trans_date: moment().format("YYYY-MM-DD"),
-              operation,
-              created_user: authUser,
-          }
-          const data = {
-              logs,
-              company_id: user.company_id,
-              branch_id: user.branch_id,
-              created_user: authUser,
-              ...record
-          }
-       //   console.log(data)
-          dispatch(showAuthLoader())
-          dispatch(requestSaveLedger(data)) */
+
     }
+    console.log(state)
     return (
         <div>
             <Card className="gx-card" title={"About"}>
-                <Form name="Add" onFinish={SaveHandler} onFinishFailed={onFinishFailed} size="large"
+                <Form name="Add" onFinish={SaveHandler} form={form} onFinishFailed={onFinishFailed} size="large"
                     labelCol={{ span: 6, }} wrapperCol={{ span: 16, }}>
                     <Row>
                         <Col span={12}>
@@ -104,6 +112,11 @@ const About = () => {
                                     <SaveOutlined />  Save
                                 </Button>
                             </Form.Item>
+                            <div className="gx-news-item">
+                                <div className="gx-news-thumb">
+                                    <img className="gx-width-175 gx-rounded-lg" src={state.url} alt="..." />
+                                </div>
+                            </div>
                         </Col>
                         <Col span={16}>
                             <Editor editorStyle={{
@@ -130,7 +143,7 @@ const About = () => {
         </div>
     )
 }
-
+const ConvertFromText = (description) => convertFromRaw(description)
 const ConvertToText = (description) => draftToHtml(convertToRaw(description.getCurrentContent()))
 
 export default About;

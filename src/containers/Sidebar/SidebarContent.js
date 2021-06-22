@@ -123,9 +123,9 @@ const SidebarContent = () => {
                                 : null
                         }
                         {
-                            _.sortBy(FilterMenuByType(FindRolePermissions(roleLists, role_id) ? FindRolePermissions(roleLists, role_id).role_permission_ms : [], "JOURNAL"), ["permission_m.permission"]).length > 0 ?
-                                <MenuItemGroup key="journal" className="gx-menu-group" title={"Journal"}>
-                                    {_.sortBy(FilterMenuByType(user.role_m ? FindRolePermissions(roleLists, role_id) ? FindRolePermissions(roleLists, role_id).role_permission_ms : [] : [], "JOURNAL"), ["permission_m.permission"]).map(item => (
+                            _.sortBy(FilterMenuByType(FindRolePermissions(roleLists, role_id) ? FindRolePermissions(roleLists, role_id).role_permission_ms : [], "WEBPAGE"), ["permission_m.permission"]).length > 0 ?
+                                <MenuItemGroup key="webpage" className="gx-menu-group" title={"Webpage"}>
+                                    {_.sortBy(FilterMenuByType(user.role_m ? FindRolePermissions(roleLists, role_id) ? FindRolePermissions(roleLists, role_id).role_permission_ms : [] : [], "WEBPAGE"), ["permission_m.permission"]).map(item => (
                                         <Menu.Item key={item.permission_id}>
                                             <Link to={item.permission_m.description}>
                                                 <i className={`icon icon-${item.permission_m.perm_icon}`} />
