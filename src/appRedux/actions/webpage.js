@@ -15,6 +15,13 @@ import {
  REQUEST_GET_PUBLICATION, SUCCESS_GET_PUBLICATION, REQUEST_SAVE_PUBLICATION, SUCCESS_SAVE_PUBLICATION,
     REQUEST_UPDATE_PUBLICATION, SUCCESS_UPDATE_PUBLICATION, REQUEST_DELETE_PUBLICATION, SUCCESS_DELETE_PUBLICATION,
     
+   
+ REQUEST_GET_MEMBER, SUCCESS_GET_MEMBER, REQUEST_SAVE_MEMBER, SUCCESS_SAVE_MEMBER,
+    REQUEST_UPDATE_MEMBER, SUCCESS_UPDATE_MEMBER, REQUEST_DELETE_MEMBER, SUCCESS_DELETE_MEMBER,
+      
+ REQUEST_GET_SIMPLECHANGE, SUCCESS_GET_SIMPLECHANGE, REQUEST_SAVE_SIMPLECHANGE, SUCCESS_SAVE_SIMPLECHANGE,
+    REQUEST_UPDATE_SIMPLECHANGE, SUCCESS_UPDATE_SIMPLECHANGE, REQUEST_DELETE_SIMPLECHANGE, SUCCESS_DELETE_SIMPLECHANGE,
+    
 
 } from "./constants"
 
@@ -58,4 +65,24 @@ export const requestUpdatePublication = createAction(REQUEST_UPDATE_PUBLICATION)
 export const successUpdatePublication = createAction(SUCCESS_UPDATE_PUBLICATION);
 export const requestDeletePublication = createAction(REQUEST_DELETE_PUBLICATION);
 export const successDeletePublication = createAction(SUCCESS_DELETE_PUBLICATION);
+
+
+export const requestGetMember = createAction(REQUEST_GET_MEMBER);
+export const successGetMember = createAction(SUCCESS_GET_MEMBER);
+export const requestSaveMember = createAction(REQUEST_SAVE_MEMBER);
+export const successSaveMember = createAction(SUCCESS_SAVE_MEMBER);
+export const requestUpdateMember = createAction(REQUEST_UPDATE_MEMBER);
+export const successUpdateMember = createAction(SUCCESS_UPDATE_MEMBER);
+export const requestDeleteMember = createAction(REQUEST_DELETE_MEMBER);
+export const successDeleteMember = createAction(SUCCESS_DELETE_MEMBER);
+
+
+export const requestGetSimpleChange = createAction(REQUEST_GET_SIMPLECHANGE);
+export const successGetSimpleChange = createAction(SUCCESS_GET_SIMPLECHANGE);
+export const requestSaveSimpleChange = createAction(REQUEST_SAVE_SIMPLECHANGE);
+export const successSaveSimpleChange = createAction(SUCCESS_SAVE_SIMPLECHANGE);
+export const requestUpdateSimpleChange = createAction(REQUEST_UPDATE_SIMPLECHANGE);
+export const successUpdateSimpleChange = createAction(SUCCESS_UPDATE_SIMPLECHANGE);
+export const requestDeleteSimpleChange = createAction(REQUEST_DELETE_SIMPLECHANGE);
+export const successDeleteSimpleChange = createAction(SUCCESS_DELETE_SIMPLECHANGE);
 

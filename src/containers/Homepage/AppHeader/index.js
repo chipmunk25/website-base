@@ -2,10 +2,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import logo from "assets/img/logo.png"
 
 import { Link } from 'react-router-dom';
-
+import Scrollspy from 'react-scrollspy'
 const AppHeader = () => {
     const [isSticky, setSticky] = useState(false);
     const [isToggled, setToggle] = useState(false);
+    const [isActive, setActive] = useState("");
+
+
 
     const ref = useRef(null);
     const handleScroll = () => {
@@ -37,7 +40,27 @@ const AppHeader = () => {
          } */
     }, [window.scrollY])
     const toggleHandler = () => setToggle(!isToggled)
-    const closeHandler = () => setToggle(false)
+    const closeHandler = (type) => {
+        setToggle(false)
+        switch (type) {
+            case "about":
+                setActive("about")
+                break
+            case "membership":
+                setActive("membership")
+                break
+            case "publications":
+                setActive("publications")
+                break
+            case "usefullinks":
+                setActive("usefullinks")
+                break
+            default:
+                break
+
+        }
+
+    }
 
     return (
         <header id="header" className={isSticky ? "header fixed-top header-scrolled" : "header fixed-top"} ref={ref}>
@@ -48,13 +71,17 @@ const AppHeader = () => {
                 </a>
 
                 <nav id="navbar" className={isToggled ? "navbar navbar-mobile" : "navbar"}>
-                    <ul>
-                        {/*   <li><a className="nav-link scrollto active" href="#hero">Home</a></li> */}
-                        <li onClick={closeHandler}><a className="nav-link scrollto active" href="#about">About</a></li>
-                        <li onClick={closeHandler}><a className="nav-link scrollto" href="#membership">Membership</a></li>
-                        <li onClick={closeHandler}><a className="nav-link scrollto" href="#publications">Publications</a></li>
-                        {/*     <li><a className="nav-link scrollto" href="#team">Team</a></li> */}
-                        {/*  <li><a href="blog.html">Blog</a></li>
+                    {/* <ul>
+                           <li><a className="nav-link scrollto active" href="#hero">Home</a></li> */}
+                    <Scrollspy items={['about', 'membership', 'publications', 'usefullinks']} currentClassName="active">
+                        <li onClick={() => closeHandler("about")}><a className={`nav-link scrollto ${isActive === "about" ? "active" : ""} `} href="#about">About</a></li>
+                        <li onClick={() => closeHandler("membership")}><a className={`nav-link scrollto ${isActive === "membership" ? "active" : ""} `} href="#membership">Members</a></li>
+                        <li onClick={() => closeHandler("publications")}><a className={`nav-link scrollto ${isActive === "publications" ? "active" : ""} `} href="#publications">Publications</a></li>
+                        <li onClick={() => closeHandler("usefullinks")}><a className={`nav-link scrollto ${isActive === "usefullinks" ? "active" : ""} `} href="#usefullinks">Useful Links</a></li>
+                        <li  ><Link to={`signin`}> <span className="getstarted">signin</span></Link> </li>
+                    </Scrollspy>
+                    {/*     <li><a className="nav-link scrollto" href="#team">Team</a></li> */}
+                    {/*  <li><a href="blog.html">Blog</a></li>
                          <li className="dropdown"><a href="#"><span>Drop Down</span> <i className="bi bi-chevron-down"></i></a>
                             <ul>
                                 <li><a href="#">Drop Down 1</a></li>
@@ -72,12 +99,10 @@ const AppHeader = () => {
                                 <li><a href="#">Drop Down 4</a></li>
                             </ul>
                         </li> */}
-                        <li onClick={closeHandler}><a className="nav-link scrollto" href="#contact">Contact</a></li>
-                        {/*  <li onClick={closeHandler}> <a className="getstarted scrollto" href="#about">Members signin</a></li> */}
-                        <li  >
-                            <Link to={`signin`}> <span className="getstarted">Members signin</span></Link>
-                        </li>
-                    </ul>
+                    {/*<li onClick={closeHandler}><a className="nav-link scrollto" href="#contact">Contact</a></li>
+                         <li onClick={closeHandler}> <a className="getstarted scrollto" href="#about">Members signin</a></li> */}
+
+                    {/*  </ul> */}
                     <i className={isToggled ? "bi bi-x mobile-nav-toggle" : "bi bi-list mobile-nav-toggle"} onClick={toggleHandler}></i>
                 </nav>
             </div>

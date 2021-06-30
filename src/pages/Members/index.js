@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { Button, Menu, Dropdown, Popconfirm } from "antd"
+import { Button, Menu, Dropdown, Popconfirm, Avatar } from "antd"
 import { EditOutlined, MoreOutlined, DeleteOutlined } from "@ant-design/icons"
 
 import PageContent from "components/PageContent"
@@ -12,27 +12,28 @@ import Create from "./Create"
 import Edit from "./Edit"
 
 import { showAuthLoader, hideAuthLoader, showModal, hideModal } from "appRedux/actions/common"
-import { requestGetLinkGroup, requestGetPublication, requestSavePublication, requestUpdatePublication, requestDeletePublication } from "appRedux/actions/webpage"
+import { requestGetLinkGroup, requestGetMember, requestSaveMember, requestUpdateMember, requestDeleteMember } from "appRedux/actions/webpage"
 
 import FuzzySearch from 'fuzzy-search';
+import { FILE_URL } from "appRedux/api/root"
 let searcher;
 
 
-const Publication = () => {
+const Members = () => {
     const dispatch = useDispatch()
     const [modalType, setModalType] = useState("")
     const [detail, setDetail] = useState({})
-    const { publicationLists, linkGroupLists } = useSelector(({ webpages }) => webpages);
+    const { memberLists, linkGroupLists } = useSelector(({ webpages }) => webpages);
     const { modal, loader } = useSelector(({ common }) => common);
     const { authUser, user } = useSelector(({ auth }) => auth);
     const [state, setState] = useState({
         aboutImage: null, id: undefined,
-        group_name: ""
+        group_name: "members"
     })
     useEffect(() => {
         dispatch(showAuthLoader())
         dispatch(requestGetLinkGroup({ company_id: user.company_id, del_flg: 0 }))
-        dispatch(requestGetPublication({ company_id: user.company_id, del_flg: 0 }))
+        dispatch(requestGetMember({ company_id: user.company_id, del_flg: 0 }))
     }, [])
 
     const LoadNShowModal = () => {
@@ -51,7 +52,7 @@ const Publication = () => {
     const DeleteHandler = async record => {
         const data = { created_user: authUser, company_id: user.company_id, ...record }
         dispatch(showAuthLoader())
-        dispatch(requestDeletePublication(data))
+        dispatch(requestDeleteMember(data))
     }
 
     const AddNewHandler = () => {
@@ -67,16 +68,14 @@ const Publication = () => {
             ...record,
             ...state
         }
-        //  console.log(data)
+
         dispatch(showAuthLoader())
-        dispatch(requestSavePublication(data))
+        dispatch(requestSaveMember(data))
         ResetPage()
     }
     const UpdateHandler = async (record) => {
         const data = {
-            /*   company_id: user.company_id,
-              created_user: authUser, 
-              del_flg: 0,*/
+
             ...detail,
             ...record,
             ...state,
@@ -84,13 +83,13 @@ const Publication = () => {
         }
         // console.log(data)
         dispatch(showAuthLoader())
-        dispatch(requestSavePublication(data))
+        dispatch(requestSaveMember(data))
         ResetPage()
     }
     const ResetPage = () => {
         setState({
             aboutImage: null, id: undefined,
-            group_name: ""
+            group_name: "members"
         })
     }
     const ValidationAlert = errorInfo => {
@@ -99,13 +98,13 @@ const Publication = () => {
 
 
     const [dataSource, setDataSource] = useState([])
-    searcher = new FuzzySearch(publicationLists, ["title", "doc_number", "description"], { caseSensitive: false });
+    searcher = new FuzzySearch(memberLists, ["title", "doc_number", "description"], { caseSensitive: false });
     useEffect(() => {
         const LoadData = async () => {
-            setDataSource(await publicationLists)
+            setDataSource(await memberLists)
         }
         LoadData()
-    }, [publicationLists])
+    }, [memberLists])
     const OnSearch = (e) => setDataSource(searcher.search(e.target.value))
 
 
@@ -117,9 +116,9 @@ const Publication = () => {
                     <div>
                         <LoadingProgress loading={loader} />
                         {modalType === "EDIT" ?
-                            <Edit state={state} setState={setState} linkGroupLists={linkGroupLists.filter(item => item.link_type === "DOCS")} detail={detail} onFinish={UpdateHandler} hideModalLoader={hideModalLoader} onFinishFailed={ValidationAlert} />
+                            <Edit state={state} setState={setState} linkGroupLists={linkGroupLists} detail={detail} onFinish={UpdateHandler} hideModalLoader={hideModalLoader} onFinishFailed={ValidationAlert} />
                             :
-                            <Create state={state} setState={setState} linkGroupLists={linkGroupLists.filter(item => item.link_type === "DOCS")} onFinish={SaveHandler} hideModalLoader={hideModalLoader} onFinishFailed={ValidationAlert} />
+                            <Create state={state} setState={setState} linkGroupLists={linkGroupLists} onFinish={SaveHandler} hideModalLoader={hideModalLoader} onFinishFailed={ValidationAlert} />
                         }
                     </div>
                 }
@@ -134,10 +133,11 @@ const Publication = () => {
                 dataSource={dataSource}
                 AddNewHandler={AddNewHandler}
                 loading={{ spinning: loader, indicator: <LoadingProgress loading={loader} /> }}
-                pageTitle="Publication"
-                placeholder="Search for Publication"
-                addNewText="Publication"
+                pageTitle="Member"
+                placeholder="Search for Member"
+                addNewText="Member"
                 scroll={{ width: 700 }}
+                size="large"
                 columns={[
                     {
                         title: 'ID',
@@ -145,10 +145,6 @@ const Publication = () => {
                         key: 'id',
                         width: 70,
                         fixed: 'left',
-                    }, {
-                        title: 'Document No.',
-                        dataIndex: 'doc_number',
-                        key: 'doc_number',
                     }, {
                         title: 'Title',
                         dataIndex: 'title',
@@ -158,9 +154,16 @@ const Publication = () => {
                         dataIndex: 'description',
                         key: 'description',
                     }, {
-                        title: 'Access Type',
-                        dataIndex: 'access_type',
-                        key: 'access_type',
+                        title: 'Logo',
+                        dataIndex: 'logo',
+                        key: 'logo',
+                        render: logo => (
+                            <img
+                                src={FILE_URL + "/" + logo}
+                                style={{ height: 50, width: 100 }}
+                            //size="large"
+                            />
+                        )
                     }, {
                         title: 'Url',
                         dataIndex: 'url',
@@ -214,4 +217,4 @@ const Publication = () => {
     )
 }
 
-export default Publication
+export default Members

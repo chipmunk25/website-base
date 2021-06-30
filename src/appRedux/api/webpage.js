@@ -20,8 +20,15 @@ export function* CreateAbout(token, data) {
             }, { headers: { Authorization: "Bearer " + token } })
         } else {
             var form_data = new FormData();
+            if (data.id) {
+                form_data.append("id", data.id.toString() )
+                //form_data.append("id", data.id ? data.id.toString() : 0)
+
+            }
             form_data.append("title", data.title)
+           // form_data.append("id", data.id ? data.id.toString() : 0)
             form_data.append("description", data.description)
+            form_data.append("filepath", data.filepath)
             form_data.append("subtitle", data.subtitle)
             form_data.append("group_name", data.group_name)
             form_data.append("company_id", data.company_id.toString())
@@ -145,14 +152,20 @@ export function* CreatePublication(token, data) {
                 ...data
             }, { headers: { Authorization: "Bearer " + token } })
         } else {
-            console.log(data)
+            //console.log(data)
             var form_data = new FormData();
+            if (data.id) {
+                form_data.append("id", data.id.toString() )
+                //form_data.append("id", data.id ? data.id.toString() : 0)
+
+            }
             form_data.append("title", data.title)
+           // form_data.append("id", data.id ? data.id.toString() : 0)
             form_data.append("group_name", data.group_name)
             form_data.append("doc_number", data.doc_number)
             form_data.append("description", data.description)
+            form_data.append("access_type", data.access_type)
             form_data.append("company_id", data.company_id.toString())
-          //  form_data.append("open_intab", data.open_intab ? data.open_intab.toString() : "0")
             form_data.append("link_group_id", data.link_group_id.toString())
             form_data.append("del_flg", data.del_flg.toString())
             form_data.append("created_user", data.created_user.toString())/* */
@@ -182,3 +195,98 @@ export function* RemovePublication(token, data) {
     }
 }
 
+
+export function* getMemberFromApi(token, { company_id, del_flg }) {
+    const params = new URLSearchParams();
+    params.append('company_id', company_id)
+
+    try {
+        return yield API().get(`/members/${del_flg}`, { params, headers: { Authorization: "Bearer " + token } })
+    } catch (error) {
+        return yield error.response
+    }
+}
+
+export function* CreateMember(token, data) {
+    //  console.log(data)
+    try {
+        let withOrWithoutImage
+        if (data.aboutImage === null || data.aboutImage === "null") {
+            withOrWithoutImage = yield API().post(`/members`, {
+                ...data
+            }, { headers: { Authorization: "Bearer " + token } })
+        } else {
+            //console.log(data)
+            var form_data = new FormData();
+            if (data.id) {
+                form_data.append("id", data.id.toString() )
+                //form_data.append("id", data.id ? data.id.toString() : 0)
+            }
+            form_data.append("title", data.title ? data.title : "")
+            form_data.append("group_name", data.group_name)
+            form_data.append("description", data.description ? data.description : "")
+            form_data.append("url", data.url)
+            form_data.append("company_id", data.company_id.toString())
+            form_data.append("del_flg", data.del_flg.toString())
+            form_data.append("created_user", data.created_user.toString())/* */
+            form_data.append('avatar', data.aboutImage.fileList[0].originFileObj);
+            withOrWithoutImage = yield API().post(`/members`, form_data,
+                { headers: { Authorization: "Bearer " + token } })
+        }
+        return withOrWithoutImage
+    } catch (error) {
+        return yield error.response
+    }
+}
+
+export function* ChangeMember(token, data) {
+    try {
+        return yield API().patch(`/publications/${data.id}`, { ...data }, { headers: { Authorization: "Bearer " + token } })
+    } catch (error) {
+        return yield error.response
+    }
+}
+
+export function* RemoveMember(token, data) {
+    try {
+        return yield API().patch(`/members/${data.id}/soft`, { ...data }, { headers: { Authorization: "Bearer " + token } })
+    } catch (error) {
+        return yield error.response
+    }
+}
+
+
+export function* getSimpleChangeFromApi(token, { company_id, del_flg }) {
+    const params = new URLSearchParams();
+    params.append('company_id', company_id)
+
+    try {
+        return yield API().get(`/simplechanges/${del_flg}`, { params, headers: { Authorization: "Bearer " + token } })
+    } catch (error) {
+        return yield error.response
+    }
+}
+
+export function* CreateSimpleChange(token, data) {
+    try {
+        return yield API().post(`/simplechanges`, { ...data }, { headers: { Authorization: "Bearer " + token } })
+    } catch (error) {
+        return yield error.response
+    }
+}
+
+export function* ChangeSimpleChange(token, data) {
+    try {
+        return yield API().patch(`/simplechanges/${data.id}`, { ...data }, { headers: { Authorization: "Bearer " + token } })
+    } catch (error) {
+        return yield error.response
+    }
+}
+
+export function* RemoveSimpleChange(token, data) {
+    try {
+        return yield API().patch(`/simplechanges/${data.id}/soft`, { ...data }, { headers: { Authorization: "Bearer " + token } })
+    } catch (error) {
+        return yield error.response
+    }
+}

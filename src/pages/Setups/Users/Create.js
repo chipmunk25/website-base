@@ -20,7 +20,7 @@ const Create = ({ onFinish, onFinishFailed, hideModalLoader, branchLists, roleLi
         <div>
             <Form name="Add" onFinish={onFinish} onFinishFailed={onFinishFailed} size="large"
                 labelCol={{ span: 6, }} wrapperCol={{ span: 16, }}>
-                <Form.Item label="Branch" name="branch_id"
+              {/*   <Form.Item label="Branch" name="branch_id"
                     rules={[{ required: true, message: 'Please Select Branch', },]}
                 >
                     <Select key={2} showSearch placeholder="Select Branch" optionFilterProp="children"
@@ -31,7 +31,7 @@ const Create = ({ onFinish, onFinishFailed, hideModalLoader, branchLists, roleLi
                                 <Option key={item.id} value={item.id}>{item.branch_name}</Option>
                             </React.Fragment>))}
                     </Select>
-                </Form.Item>
+                </Form.Item> */}
                 <Form.Item label="Fullname" name="fullname" hasFeedback rules={[{ required: true, message: 'Please Enter Fullname', },]}  >
                     <Input placeholder="Fullname" />
                 </Form.Item>

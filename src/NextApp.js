@@ -10,7 +10,7 @@ import App from "./containers/App/index";
 import 'antd/dist/antd.css';
 import "aos/dist/aos.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'shards-ui/dist/css/shards.min.css';
+//import 'shards-ui/dist/css/shards.min.css';
 import "./assets/bootstrap-icons/bootstrap-icons.css"
 import "./assets/remixicon/remixicon.css" 
 import "./assets/test.css"

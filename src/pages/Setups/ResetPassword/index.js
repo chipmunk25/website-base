@@ -2,13 +2,14 @@ import React from 'react';
 import { Row, Col, Form, Input, Button } from 'antd'
 import Widget from 'components/Widget';
 
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { showAuthLoader } from "appRedux/actions/common"
+import { requestResetPassword } from "appRedux/actions/auth"
 
 import moment from "moment"
 
-import { requestResetPassword } from "appRedux/actions/auth"
+import * as pwdgen from "generate-password"
 const tailLayout = {
     wrapperCol: {
         offset: 8,
@@ -17,16 +18,21 @@ const tailLayout = {
 };
 const ResetPassword = () => {
     const dispatch = useDispatch();
-    
+
     const { user, authUser } = useSelector(({ auth }) => auth);
     const onFinish = async values => {
-       
-     /*    const data = {
-           
-            ...values,
-        } */
+
+        /*    const data = {
+              
+               ...values,
+           } */
         dispatch(showAuthLoader());
-        dispatch(requestResetPassword(values));
+        dispatch(requestResetPassword({
+            ...values, password: pwdgen.generate({
+                length: 10, numbers: true, symbols: true, lowercase: true,
+                uppercase: true, strict: true, exclude: "'"
+            })
+        }));
     }
     const onFinishFailed = values => {
         // console.log(values)
@@ -44,14 +50,13 @@ const ResetPassword = () => {
                             <Form.Item name="email" label="Email" hasFeedback rules={[{ required: true, type: 'email', message: 'The input is not valid E-mail!', }]}>
                                 <Input placeholder="Email" />
                             </Form.Item>
-                            <Form.Item label="Default Password" name="password" rules={[{ required: true, message: 'Default Password', },]} >
+                           {/*  <Form.Item label="Default Password" name="password" rules={[{ required: true, message: 'Default Password', },]} >
                                 <Input placeholder="Default Password" allowClear />
-                            </Form.Item>
+                            </Form.Item> */}
                             <Form.Item {...tailLayout}>
                                 <Button type="primary login-btn" className="gx-mb-0" htmlType="submit">
                                     Reset Password
-                    </Button>
-
+                                </Button>
                             </Form.Item>
                         </Form>
                     </Widget>

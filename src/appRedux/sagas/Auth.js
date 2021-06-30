@@ -26,7 +26,7 @@ import AlertMessage from "components/Alert/message"
 import openNotificationWithIcon from 'components/Alert/notification';
 function* LoginUser(data) {
     return yield Login(data)
-}  
+}
 function* SignInUserHandler({ payload }) {
     try {
         const signInUser = yield call(LoginUser, payload);
@@ -76,7 +76,7 @@ function* signOut({ payload }) {
         sessionStorage.removeItem('role_id');
         const user = yield call(Logout, sessionStorage.getItem('token'), payload);
         sessionStorage.removeItem('token');
-     //   console.log(user)
+        //   console.log(user)
         if (user.status === 200) {
             yield AlertMessage("success", user.data.message, "success", 2)
         }
@@ -107,7 +107,7 @@ function* ResetPwdHandler({ payload }) {
     yield put(hideAuthLoader())
     if (res.status === 201) {
         yield put(successResetPassword(res.data.result))
-        openNotificationWithIcon("success", 'Success', 'Record Updated Successfully')
+        openNotificationWithIcon("success", 'Success', 'Check your Email for New Password')
     }
     else {
         openNotificationWithIcon('error', 'Error', res.error)
@@ -167,7 +167,7 @@ function* SMSBalHandler() {
 }
 function* GetUsersHandler({ payload }) {
     let res = yield call(getUsersFromApi, sessionStorage.getItem('token'), payload)
-     console.log(res)
+    console.log(res)
     if (res) {
         if (res.status === 200) {
             yield put(successGetUsers({
@@ -184,7 +184,7 @@ function* GetUsersHandler({ payload }) {
 
 function* GetRolesHandler({ payload }) {
     let res = yield call(getRoleFromApi, sessionStorage.getItem('token'), payload)
-     console.log(res)
+    console.log(res)
     if (res) {
         if (res.status === 200) {
             yield put(successGetRole({
@@ -375,9 +375,9 @@ function* GetPermissionHandler({ payload }) {
 
 
 function* SavePermissionHandler({ payload }) {
-     console.log(payload)
+    console.log(payload)
     const res = yield call(CreatePermission, sessionStorage.getItem('token'), payload)
-      console.log(res) 
+    console.log(res)
     yield put(hideAuthLoader())
     yield put(hideModal())
     if (res.status === 201) {

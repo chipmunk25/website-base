@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Clients from "../AppClient/clients"
 const AppServices = () => {
     return (
         <section id="membership" className=" section services">
@@ -18,7 +18,9 @@ const AppServices = () => {
                     </div>
                     <div className="col-lg-2"></div>
                 </div>
-
+                <div className="clients-slider swiper-container">
+                    <Clients />
+                </div>
                 {/*   <div className="row gy-4">
 
                     <div className="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">

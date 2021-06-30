@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Card, Form, Input, Row, Col, Button } from "antd";
 import { SaveOutlined } from "@ant-design/icons"
 
-import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
+import ReactHtmlParser from 'react-html-parser';
 import { convertToRaw, ContentState, convertFromHTML, EditorState, convertFromRaw } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import draftToHtml from "draftjs-to-html";
@@ -15,7 +15,7 @@ import ImageUploader from "./ImageUpload";
 import { requestSaveAbout, requestGetAbout } from "appRedux/actions/webpage"
 import { showAuthLoader, } from "appRedux/actions/common"
 import { FILE_URL } from '../../appRedux/api/root';
-
+import ConvertFromHTMLtoTEXT from "utils/ConvertHTMLtoText"
 
 const About = () => {
     const dispatch = useDispatch()
@@ -24,18 +24,11 @@ const About = () => {
     const [state, setState] = useState({
         description: EditorState.createEmpty(),
         aboutImage: null, id: undefined,
-        url: ""
+        url: "",
+        filepath: ""
     })
 
-    const convertFromHtmlTOTextfield = content => {
-        if (content === null) {
-            return EditorState.createEmpty();
-        } else {
-            const blocksFromHTML = convertFromHTML(content);
-            const contentState = ContentState.createFromBlockArray(blocksFromHTML);
-            return EditorState.createWithContent(contentState);
-        }
-    };
+
     const onEditorStateChange = (description) => {
         setState({ ...state, description, });
     };
@@ -44,7 +37,7 @@ const About = () => {
     }
 
     const [form] = Form.useForm();
-    console.log(aboutLists)
+    //  console.log(aboutLists)
     useEffect(() => {
         dispatch(showAuthLoader())
         dispatch(requestGetAbout({ company_id: 1, del_flg: 0 }))
@@ -52,15 +45,15 @@ const About = () => {
 
     useEffect(() => {
         const detail = aboutLists[0]
-        console.log(detail)
+        //  console.log(detail)
         if (detail) {
-            const description = convertFromHtmlTOTextfield(detail.description)
+            const description = ConvertFromHTMLtoTEXT(JSON.parse(detail.description))
             form.setFieldsValue({
                 title: detail.title,
                 subtitle: detail.subtitle,
                 url: detail.url,
             });
-            setState({ ...state, id: detail.id, description, url: FILE_URL + detail.aboutImage, })
+            setState({ ...state, id: detail.id, description, url: FILE_URL + detail.aboutImage, filepath: detail.aboutImage })
         }
 
     }, [aboutLists])
@@ -68,16 +61,16 @@ const About = () => {
     const SaveHandler = async (record) => {
         const data = {
             ...record, ...state,
-            description: ConvertToText(state.description),
+            description: JSON.stringify(ConvertToText(state.description)),
             del_flg: 0, created_user: authUser,
             company_id: user.company_id, group_name: 'about'
         }
-
+      //  console.log(data)
         dispatch(showAuthLoader())
         dispatch(requestSaveAbout(data))
 
     }
-    console.log(state)
+    // console.log(state)
     return (
         <div>
             <Card className="gx-card" title={"About"}>
@@ -103,7 +96,7 @@ const About = () => {
                         <Col span={3}></Col>
                         <Col span={5}>
                             <div className="gx-form-group">
-                                <ImageUploader image_title="Upload Image" imageChange={(aboutImage) =>
+                                <ImageUploader image_title="Upload File" imageChange={(aboutImage) =>
                                     setState({ ...state, aboutImage })} />
 
                             </div>
@@ -133,17 +126,13 @@ const About = () => {
                             />
                         </Col>
                     </Row>
-
-
-
-
                 </Form>
-
             </Card>
         </div>
     )
 }
-const ConvertFromText = (description) => convertFromRaw(description)
+
+
 const ConvertToText = (description) => draftToHtml(convertToRaw(description.getCurrentContent()))
 
 export default About;

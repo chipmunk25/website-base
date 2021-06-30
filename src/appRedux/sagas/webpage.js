@@ -5,12 +5,16 @@ import {
     CreateLinkGroup, ChangeLinkGroup, RemoveLinkGroup, getLinkGroupFromApi,
     CreateUsefulLinks, ChangeUsefulLinks, RemoveUsefulLinks, getUsefulLinksFromApi,
     CreatePublication, ChangePublication, RemovePublication, getPublicationFromApi,
+    CreateMember, ChangeMember, RemoveMember, getMemberFromApi,
+    CreateSimpleChange, ChangeSimpleChange, RemoveSimpleChange, getSimpleChangeFromApi,
  } from "../api/webpage"
 import { 
     successSaveAbout, successDeleteAbout, successUpdateAbout, successGetAbout,
     successSaveLinkGroup, successDeleteLinkGroup, successUpdateLinkGroup, successGetLinkGroup,
     successSaveUsefulLinks, successDeleteUsefulLinks, successUpdateUsefulLinks, successGetUsefulLinks,
     successSavePublication, successDeletePublication, successUpdatePublication, successGetPublication,
+    successSaveMember, successDeleteMember, successUpdateMember, successGetMember,
+    successSaveSimpleChange, successDeleteSimpleChange, successUpdateSimpleChange, successGetSimpleChange,
  } from "../actions/webpage"
 import { hideAuthLoader, hideModal } from "../actions/common"
 
@@ -19,6 +23,8 @@ import {
      REQUEST_GET_LINKGROUP, REQUEST_SAVE_LINKGROUP, REQUEST_DELETE_LINKGROUP, REQUEST_UPDATE_LINKGROUP,
      REQUEST_GET_USEFULLINKS, REQUEST_SAVE_USEFULLINKS, REQUEST_DELETE_USEFULLINKS, REQUEST_UPDATE_USEFULLINKS,
      REQUEST_GET_PUBLICATION, REQUEST_SAVE_PUBLICATION, REQUEST_DELETE_PUBLICATION, REQUEST_UPDATE_PUBLICATION,
+     REQUEST_GET_MEMBER, REQUEST_SAVE_MEMBER, REQUEST_DELETE_MEMBER, REQUEST_UPDATE_MEMBER,
+     REQUEST_GET_SIMPLECHANGE, REQUEST_SAVE_SIMPLECHANGE, REQUEST_DELETE_SIMPLECHANGE, REQUEST_UPDATE_SIMPLECHANGE,
  } from '../actions/constants';
 
 import openNotificationWithIcon from 'components/Alert/notification';
@@ -240,6 +246,116 @@ function* DeletePublicationHandler({ payload }) {
 }
 
 
+function* GetMemberHandler({ payload }) {
+    const res = yield call(getMemberFromApi, sessionStorage.getItem('token'), payload)
+    yield put(hideAuthLoader())
+    if (res.status === 200) {
+        yield put(successGetMember({ memberLists: res.data.result }))
+    }
+    else {
+        openNotificationWithIcon('error', 'Error', res.error)
+    }
+}
+
+
+function* SaveMemberHandler({ payload }) {
+    const res = yield call(CreateMember, sessionStorage.getItem('token'), payload)
+    console.log(res)
+    yield put(hideAuthLoader())
+    yield put(hideModal())
+    if (res.status === 201) {
+        yield put(successSaveMember(res.data.result))
+        openNotificationWithIcon("success", 'Success', 'Record Saved Successfully')
+    }
+    else {
+        openNotificationWithIcon('error', 'Error', res.error)
+    }
+}
+
+
+function* UpdateMemberHandler({ payload }) {
+    const res = yield call(ChangeMember, sessionStorage.getItem('token'), payload)
+    console.log(res)
+    yield put(hideAuthLoader())
+    yield put(hideModal())
+    if (res.status === 201) {
+        yield put(successUpdateMember(res.data.result))
+        openNotificationWithIcon("success", 'Success', 'Record Updated Successfully')
+    }
+    else {
+        openNotificationWithIcon('error', 'Error', res.error)
+    }
+}
+
+function* DeleteMemberHandler({ payload }) {
+    const res = yield call(RemoveMember, sessionStorage.getItem('token'), payload)
+    yield put(hideAuthLoader())
+    yield put(hideModal())
+    if (res.status === 201) {
+        yield put(successDeleteMember(res.data.result))
+        openNotificationWithIcon("success", 'Success', 'Record Deleted Successfully')
+    }
+    else {
+        openNotificationWithIcon('error', 'Error', res.error)
+    }
+}
+
+
+function* GetSimpleChangeHandler({ payload }) {
+    const res = yield call(getSimpleChangeFromApi, sessionStorage.getItem('token'), payload)
+    yield put(hideAuthLoader())
+    if (res.status === 200) {
+        yield put(successGetSimpleChange({ simplechangeLists: res.data.result }))
+    }
+    else {
+        openNotificationWithIcon('error', 'Error', res.error)
+    }
+}
+
+
+function* SaveSimpleChangeHandler({ payload }) {
+    const res = yield call(CreateSimpleChange, sessionStorage.getItem('token'), payload)
+    console.log(res)
+    yield put(hideAuthLoader())
+    yield put(hideModal())
+    if (res.status === 201) {
+        yield put(successSaveSimpleChange(res.data.result))
+        openNotificationWithIcon("success", 'Success', 'Record Saved Successfully')
+    }
+    else {
+        openNotificationWithIcon('error', 'Error', res.error)
+    }
+}
+
+
+function* UpdateSimpleChangeHandler({ payload }) {
+    const res = yield call(ChangeSimpleChange, sessionStorage.getItem('token'), payload)
+    console.log(res)
+    yield put(hideAuthLoader())
+    yield put(hideModal())
+    if (res.status === 201) {
+        yield put(successUpdateSimpleChange(res.data.result))
+        openNotificationWithIcon("success", 'Success', 'Record Updated Successfully')
+    }
+    else {
+        openNotificationWithIcon('error', 'Error', res.error)
+    }
+}
+
+function* DeleteSimpleChangeHandler({ payload }) {
+    const res = yield call(RemoveSimpleChange, sessionStorage.getItem('token'), payload)
+    yield put(hideAuthLoader())
+    yield put(hideModal())
+    if (res.status === 201) {
+        yield put(successDeleteSimpleChange(res.data.result))
+        openNotificationWithIcon("success", 'Success', 'Record Deleted Successfully')
+    }
+    else {
+        openNotificationWithIcon('error', 'Error', res.error)
+    }
+}
+
+
 
 
 export function* ActionWatchers() {
@@ -262,6 +378,16 @@ export function* ActionWatchers() {
     yield takeEvery(REQUEST_SAVE_PUBLICATION, SavePublicationHandler)
     yield takeEvery(REQUEST_DELETE_PUBLICATION, DeletePublicationHandler)
     yield takeEvery(REQUEST_UPDATE_PUBLICATION, UpdatePublicationHandler)
+    
+     yield takeEvery(REQUEST_GET_MEMBER, GetMemberHandler)
+    yield takeEvery(REQUEST_SAVE_MEMBER, SaveMemberHandler)
+    yield takeEvery(REQUEST_DELETE_MEMBER, DeleteMemberHandler)
+    yield takeEvery(REQUEST_UPDATE_MEMBER, UpdateMemberHandler)
+
+     yield takeEvery(REQUEST_GET_SIMPLECHANGE, GetSimpleChangeHandler)
+    yield takeEvery(REQUEST_SAVE_SIMPLECHANGE, SaveSimpleChangeHandler)
+    yield takeEvery(REQUEST_DELETE_SIMPLECHANGE, DeleteSimpleChangeHandler)
+    yield takeEvery(REQUEST_UPDATE_SIMPLECHANGE, UpdateSimpleChangeHandler)
     
 }
 

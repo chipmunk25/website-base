@@ -121,7 +121,14 @@ const Branch = () => {
             <PageContent
                 OnSearch={OnSearch}
                 rowKey="id"
-                dataSource={dataSource}
+                dataSource={dataSource.map(item => {
+                    return {
+                        ...item,
+                        role: item.role_m ? item.role_m.role_name : FindName(roleLists, item.role_id).role_name,
+                     
+                        
+                    }
+                })}
                 AddNewHandler={AddNewHandler}
                 pageTitle="Users"
                 placeholder="Search for User"

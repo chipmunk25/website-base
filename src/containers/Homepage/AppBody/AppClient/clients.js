@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -11,8 +13,33 @@ import Client5 from "assets/img/clients/client-5.png"
 import Client6 from "assets/img/clients/client-6.png"
 import Client7 from "assets/img/clients/client-7.png"
 import Client8 from "assets/img/clients/client-8.png"
+
+
+
+
+import { showAuthLoader, hideAuthLoader,  } from "appRedux/actions/common"
+import {  requestGetMember,  } from "appRedux/actions/webpage"
+
 const Clients = () => {
-    const options = {
+    const dispatch = useDispatch()
+    const { memberLists,  } = useSelector(({ webpages }) => webpages);
+   
+    useEffect(() => {
+        dispatch(showAuthLoader())
+        dispatch(requestGetMember({ company_id: 1, del_flg: 0 }))
+    }, [])
+    return (
+        <div>
+
+            <Slider  {...options} className="swiper-wrapper align-items-center">
+                {memberLists && memberLists.map((item, index) => (
+                    <ClientItem key={index} item={item} />
+                ))}
+            </Slider>
+        </div>
+    );
+};
+ const options = {
         infinite: true,
         dots: true,
         speed: 1000,
@@ -62,18 +89,6 @@ const Clients = () => {
             }
         ]
     }
-
-    return (
-        <div>
-
-            <Slider  {...options} className="swiper-wrapper align-items-center">
-                {swiperImage && swiperImage.map((item, index) => (
-                    <ClientItem key={index} item={item} />
-                ))}
-            </Slider>
-        </div>
-    );
-};
 
 const swiperImage = [
     { id: 1, image: Client1 },

@@ -18,7 +18,7 @@ const ActionTools = ({ addNewText, ExportExcelHandler, ExportPDFHandler, AddNewH
                         <PlusOutlined className="right-side-icons addnew" onClick={AddNewHandler} />
                     </Tooltip>
                 </li>
-                <li>
+               {/*  <li>
                     <Tooltip title="Export Excel">
                         <FileExcelFilled className="right-side-icons excel" onClick={ExportExcelHandler} />
                     </Tooltip>
@@ -28,7 +28,7 @@ const ActionTools = ({ addNewText, ExportExcelHandler, ExportPDFHandler, AddNewH
                     <Tooltip title="Export PDF">
                         <FilePdfFilled className="right-side-icons pdf" onClick={ExportPDFHandler} />
                     </Tooltip>
-                </li>
+                </li> */}
             </ul>
         </div>
     );

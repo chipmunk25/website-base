@@ -7,8 +7,8 @@ const Datatable = (props) => {
             <Table
                 className="table table-striped-rows"
                 scroll={{ x: 1500, y: 600 }}
-                {...props}
                 size="small"
+                {...props}
             />
         </div>
     );

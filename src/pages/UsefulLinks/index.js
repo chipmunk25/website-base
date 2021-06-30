@@ -99,9 +99,9 @@ const UsefulLinks = () => {
                     <div>
                         <LoadingProgress loading={loader} />
                         {modalType === "EDIT" ?
-                            <Edit linkGroupLists={linkGroupLists} detail={detail} onFinish={UpdateHandler} hideModalLoader={hideModalLoader} onFinishFailed={ValidationAlert} />
+                            <Edit linkGroupLists={linkGroupLists.filter(item => item.link_type === "LINKS")} detail={detail} onFinish={UpdateHandler} hideModalLoader={hideModalLoader} onFinishFailed={ValidationAlert} />
                             :
-                            <Create linkGroupLists={linkGroupLists} onFinish={SaveHandler} hideModalLoader={hideModalLoader} onFinishFailed={ValidationAlert} />
+                            <Create linkGroupLists={linkGroupLists.filter(item => item.link_type === "LINKS")} onFinish={SaveHandler} hideModalLoader={hideModalLoader} onFinishFailed={ValidationAlert} />
                         }
                     </div>
                 }

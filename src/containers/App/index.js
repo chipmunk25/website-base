@@ -1,10 +1,11 @@
-import React,{ memo, useEffect } from 'react';
+import React, { memo, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import MainApp from "./MainApp";
 
 import { Redirect, Route, Switch, useLocation, useRouteMatch, useHistory } from "react-router-dom";
 import Homepage from '../Homepage';
 import SignIn from '../SignIn';
+import ForgotPassword from '../Forgot';
 import { setInitUrl } from "appRedux/actions/auth";
 const RestrictedRoute = ({ component: Component, location, authUser, ...rest }) =>
     <Route
@@ -19,7 +20,7 @@ const RestrictedRoute = ({ component: Component, location, authUser, ...rest }) 
 
 
 const App = () => {
-    const { authUser, initURL } = useSelector(({ auth }) => auth);
+    const { authUser, initURL, user } = useSelector(({ auth }) => auth);
 
     const dispatch = useDispatch();
     const location = useLocation();
@@ -34,10 +35,15 @@ const App = () => {
 
     useEffect(() => {
         if (location.pathname === '/') {
+
             if (authUser === null) {
                 history.push('/home');
             } else if (initURL === '' || initURL === '/' || initURL === '/home') {
-                history.push('/dashboard');
+                if (user.role === "MEMBERS") {
+                    history.push('/home');
+                } else {
+                    history.push('/dashboard');
+                }
             } else {
                 history.push(initURL);
             }
@@ -48,6 +54,7 @@ const App = () => {
         <Switch>
             <Route exact path='/home' component={Homepage} />
             <Route exact path='/signin' component={SignIn} />
+            <Route exact path='/forgot' component={ForgotPassword} />
             <RestrictedRoute path={`${match.url}`} authUser={authUser} location={location}
                 component={MainApp} />
         </Switch>

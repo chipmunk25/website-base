@@ -17,7 +17,7 @@ const Edit = ({ detail, onFinish, onFinishFailed, hideModalLoader, branchLists, 
             telephone: detail.telephone,
             email: detail.email,
             role_id: detail.role_id,
-            branch_id: detail.branch_id,
+          //  branch_id: detail.branch_id,
             user_status: detail.user_status,
         });
         setTimeout(() => {
@@ -29,7 +29,7 @@ const Edit = ({ detail, onFinish, onFinishFailed, hideModalLoader, branchLists, 
         <div>
             <Form name="Edit" form={form} onFinish={onFinish} onFinishFailed={onFinishFailed} size="large"
                 labelCol={{ span: 6, }} wrapperCol={{ span: 16, }}>
-                <Form.Item label="Branch" name="branch_id"
+               {/*  <Form.Item label="Branch" name="branch_id"
                     rules={[{ required: true, message: 'Please Select Branch', },]}
                 >
                     <Select key={2} showSearch placeholder="Select Branch" optionFilterProp="children"
@@ -42,7 +42,7 @@ const Edit = ({ detail, onFinish, onFinishFailed, hideModalLoader, branchLists, 
                                     : <Option value={item.id}>{item.branch_name}</Option>}
                             </React.Fragment>))}
                     </Select>
-                </Form.Item>
+                </Form.Item> */}
                 <Form.Item label="Fullname" name="fullname" hasFeedback rules={[{ required: true, message: 'Please Enter Fullname', },]}  >
                     <Input placeholder="Fullname" />
                 </Form.Item>

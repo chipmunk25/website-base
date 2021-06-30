@@ -8,6 +8,7 @@ import LinkGroup from "./LinkGroup"
 import UsefulLinks from "./UsefulLinks"
 import Publication from "./Publications"
 import Setups from './Setups';
+import Members from './Members';
 
 const App = ({ match }) => (
   <div className="gx-main-content-wrapper">
@@ -18,6 +19,7 @@ const App = ({ match }) => (
       <Route path={`${match.url}linkgroup`} component={LinkGroup} />
       <Route path={`${match.url}usefullinks`} component={UsefulLinks} />
       <Route path={`${match.url}publication`} component={Publication} />
+      <Route path={`${match.url}members`} component={Members} />
       <Route path={`${match.url}setups`} component={Setups} />
 
     </Switch>

@@ -4,7 +4,7 @@ import {
     LockOutlined, UserOutlined
 } from '@ant-design/icons';
 import { useDispatch, useSelector } from "react-redux";
-
+import { Link } from 'react-router-dom';
 import moment from "moment"
 import { showAuthLoader } from "appRedux/actions/common"
 import { signInUser } from "appRedux/actions/auth"
@@ -39,6 +39,16 @@ const LoginForm = () => {
                 <Form.Item hasFeedback name="password" label="Password" rules={[{ required: true, message: 'Please input your Password!' }]}>
                     <Input.Password prefix={<LockOutlined />} type="password" placeholder="Password" />
                 </Form.Item>
+                <Form.Item >
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <Link to="/home" >
+                            <span>Homepage</span>
+                        </Link>
+                        <Link to="/forgot" >
+                            <span>Forgot Password</span>
+                        </Link>
+                    </div>
+                </Form.Item >
                 <Form.Item >
                     <Button type="primary" size="large" block
                         className="gx-mb-0 btn-get-started" htmlType="submit">
