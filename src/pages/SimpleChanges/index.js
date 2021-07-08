@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { Button, Menu, Dropdown, Popconfirm, Avatar } from "antd"
+import { Button, Menu, Dropdown, Popconfirm, Switch } from "antd"
 import { EditOutlined, MoreOutlined, DeleteOutlined } from "@ant-design/icons"
 
 import PageContent from "components/PageContent"
@@ -12,28 +12,34 @@ import Create from "./Create"
 import Edit from "./Edit"
 
 import { showAuthLoader, hideAuthLoader, showModal, hideModal } from "appRedux/actions/common"
-import { requestGetLinkGroup, requestGetMember, requestSaveMember, requestUpdateMember, requestDeleteMember } from "appRedux/actions/webpage"
+import { requestGetSimpleChange, requestSaveSimpleChange, requestUpdateSimpleChange, requestDeleteSimpleChange } from "appRedux/actions/webpage"
 
+import {
+    EditorState,convertToRaw
+} from "draft-js";
+
+import draftToHtml from "draftjs-to-html";
 import FuzzySearch from 'fuzzy-search';
-import { FILE_URL } from "appRedux/api/root"
 let searcher;
 
 
-const Members = () => {
+const SimpleChanges = () => {
+
     const dispatch = useDispatch()
     const [modalType, setModalType] = useState("")
     const [detail, setDetail] = useState({})
-    const { memberLists, linkGroupLists } = useSelector(({ webpages }) => webpages);
+    const { simplechangeLists } = useSelector(({ webpages }) => webpages);
     const { modal, loader } = useSelector(({ common }) => common);
     const { authUser, user } = useSelector(({ auth }) => auth);
     const [state, setState] = useState({
-        aboutImage: null, id: undefined,
-        group_name: "members"
+        description: EditorState.createEmpty(),
     })
+    const onEditorStateChange = (description) => {
+        setState({ ...state, description, });
+    };
     useEffect(() => {
         dispatch(showAuthLoader())
-        dispatch(requestGetLinkGroup({ company_id: user.company_id, del_flg: 0 }))
-        dispatch(requestGetMember({ company_id: user.company_id, del_flg: 0 }))
+        dispatch(requestGetSimpleChange({ company_id: user.company_id, del_flg: 0 }))
     }, [])
 
     const LoadNShowModal = () => {
@@ -52,7 +58,7 @@ const Members = () => {
     const DeleteHandler = async record => {
         const data = { created_user: authUser, company_id: user.company_id, ...record }
         dispatch(showAuthLoader())
-        dispatch(requestDeleteMember(data))
+        dispatch(requestDeleteSimpleChange(data))
     }
 
     const AddNewHandler = () => {
@@ -64,47 +70,36 @@ const Members = () => {
         const data = {
             company_id: user.company_id,
             created_user: authUser,
-            del_flg: 0,
-            ...record,
-            ...state
+            description: JSON.stringify(ConvertToText(state.description)),
+            ...record
         }
-
+    //    console.log(data)
         dispatch(showAuthLoader())
-        dispatch(requestSaveMember(data))
-        ResetPage()
+        dispatch(requestSaveSimpleChange(data))
     }
     const UpdateHandler = async (record) => {
         const data = {
-
             ...detail,
             ...record,
-            ...state,
             id: detail.id,
         }
-        // console.log(data)
         dispatch(showAuthLoader())
-        dispatch(requestSaveMember(data))
-        ResetPage()
+        dispatch(requestUpdateSimpleChange(data))
     }
-    const ResetPage = () => {
-        setState({
-            aboutImage: null, id: undefined,
-            group_name: "members"
-        })
-    }
+
     const ValidationAlert = errorInfo => {
         // console.log(errorInfo)
     }
 
 
     const [dataSource, setDataSource] = useState([])
-    searcher = new FuzzySearch(memberLists, ["title", "description"], { caseSensitive: false });
+    searcher = new FuzzySearch(simplechangeLists, ["title", "page_type", "description"], { caseSensitive: false });
     useEffect(() => {
         const LoadData = async () => {
-            setDataSource(await memberLists)
+            setDataSource(await simplechangeLists)
         }
         LoadData()
-    }, [memberLists])
+    }, [simplechangeLists])
     const OnSearch = (e) => setDataSource(searcher.search(e.target.value))
 
 
@@ -116,15 +111,17 @@ const Members = () => {
                     <div>
                         <LoadingProgress loading={loader} />
                         {modalType === "EDIT" ?
-                            <Edit state={state} setState={setState} linkGroupLists={linkGroupLists} detail={detail} onFinish={UpdateHandler} hideModalLoader={hideModalLoader} onFinishFailed={ValidationAlert} />
+                            <Edit detail={detail} onFinish={UpdateHandler} hideModalLoader={hideModalLoader} onFinishFailed={ValidationAlert} />
                             :
-                            <Create state={state} setState={setState} linkGroupLists={linkGroupLists} onFinish={SaveHandler} hideModalLoader={hideModalLoader} onFinishFailed={ValidationAlert} />
+                            <Create onFinish={SaveHandler} hideModalLoader={hideModalLoader}
+                                onEditorStateChange={onEditorStateChange} state={state}
+                                onFinishFailed={ValidationAlert} />
                         }
                     </div>
                 }
                 title={modalType ? "Edit" : "Create"}
                 visible={modal}
-                width={600}
+                width={1000}
                 handleCancel={CloseModal}
             />
             <PageContent
@@ -133,11 +130,10 @@ const Members = () => {
                 dataSource={dataSource}
                 AddNewHandler={AddNewHandler}
                 loading={{ spinning: loader, indicator: <LoadingProgress loading={loader} /> }}
-                pageTitle="Member"
-                placeholder="Search for Member"
-                addNewText="Member"
+                pageTitle="Simple Changes"
+                placeholder="Search for Simple Changes"
+                addNewText="Simple Changes"
                 scroll={{ width: 700 }}
-                size="large"
                 columns={[
                     {
                         title: 'ID',
@@ -153,21 +149,15 @@ const Members = () => {
                         title: 'Description',
                         dataIndex: 'description',
                         key: 'description',
+                        /*   render: (text) => (
+                              <div>
+                                  {ConvertToText(ConvertFromHTMLtoTEXT(JSON.parse(detail.description)))}
+                              </div>
+                          ) */
                     }, {
-                        title: 'Logo',
-                        dataIndex: 'logo',
-                        key: 'logo',
-                        render: logo => (
-                            <img
-                                src={FILE_URL + "/" + logo}
-                                style={{ height: 50, width: 100 }}
-                            //size="large"
-                            />
-                        )
-                    }, {
-                        title: 'Url',
-                        dataIndex: 'url',
-                        key: 'url',
+                        title: 'Page Type',
+                        dataIndex: 'page_type',
+                        key: 'page_type',
                     },
                     {
                         title: 'Action',
@@ -217,4 +207,6 @@ const Members = () => {
     )
 }
 
-export default Members
+const ConvertToText = (description) => draftToHtml(convertToRaw(description.getCurrentContent()))
+
+export default SimpleChanges

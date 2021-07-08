@@ -24,10 +24,7 @@ const Clients = () => {
     const dispatch = useDispatch()
     const { memberLists,  } = useSelector(({ webpages }) => webpages);
    
-    useEffect(() => {
-        dispatch(showAuthLoader())
-        dispatch(requestGetMember({ company_id: 1, del_flg: 0 }))
-    }, [])
+  
     return (
         <div>
 

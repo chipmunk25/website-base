@@ -18,7 +18,7 @@ const Create = ({ onFinish, onFinishFailed, hideModalLoader, linkGroupLists, set
     }, [])
 
     const onChange = (value, text) => {
-        console.log(value, text)
+      //  console.log(value, text)
         setState({ ...state, group_name: text.children })
     }
     return (

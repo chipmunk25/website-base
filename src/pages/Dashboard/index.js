@@ -37,21 +37,21 @@ const Dashboard = () => {
     const dispatch = useDispatch()
     const { user, roleLists, role_id } = useSelector(({ auth }) => auth);
 
-    
+
     useEffect(() => {
         dispatch(showAuthLoader())
         dispatch(requestGetRole({ company_id: user.company_id, del_flg: 0 }))
     }, [])
-  
-    
+
+
     return (
         <div>
             <h1>Dashboard</h1>
             <Auxiliary>
-                
+
                 <Row>
                     {
-                        _.sortBy(FilterMenuByType(FindRolePermissions(roleLists, role_id) ? FindRolePermissions(roleLists, role_id).role_permission_ms : []), ["permission_m.permission"]).map((item, index) => (
+                        _.sortBy(FilterMenuByType(FindRolePermissions(roleLists, role_id) ? FindRolePermissions(roleLists, role_id).role_permission_ms : []), ["permission_m.permission"]).filter(item => (item.permission_m.permission).toLowerCase() !== ("Dashboard").toLowerCase()).map((item, index) => (
                             <Col key={item.permission_id} xl={6} lg={12} md={12} sm={12} xs={24}>
                                 <Link to={item.permission_m.description}>
                                     <DashboardCards

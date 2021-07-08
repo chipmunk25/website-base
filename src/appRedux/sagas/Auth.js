@@ -123,11 +123,11 @@ function* UpdateUserInfoHandler({ payload }) {
     const res = yield call(UpdateExistUser, payload)
     yield put(hideAuthLoader())
     if (res.status === 201) {
-        if (parseInt(res.data.result.id) === parseInt(sessionStorage.getItem('user_id'))) {
-            yield sessionStorage.setItem('user_info', JSON.stringify(res.data.result));
-            yield put(successUpdateUser(res.data.result))
+        if (parseInt(res.data.user.id) === parseInt(sessionStorage.getItem('user_id'))) {
+            yield sessionStorage.setItem('user_info', JSON.stringify(res.data.user));
+            yield put(successUpdateUser(res.data.user))
         }
-        yield put(successUpdateUsers(res.data.result))
+        yield put(successUpdateUsers(res.data.user))
         openNotificationWithIcon("success", 'Success', 'Record Saved Successfully')
         yield put(hideModal())
     }
@@ -167,7 +167,7 @@ function* SMSBalHandler() {
 }
 function* GetUsersHandler({ payload }) {
     let res = yield call(getUsersFromApi, sessionStorage.getItem('token'), payload)
-    console.log(res)
+ 
     if (res) {
         if (res.status === 200) {
             yield put(successGetUsers({
@@ -184,7 +184,7 @@ function* GetUsersHandler({ payload }) {
 
 function* GetRolesHandler({ payload }) {
     let res = yield call(getRoleFromApi, sessionStorage.getItem('token'), payload)
-    console.log(res)
+    // console.log(res)
     if (res) {
         if (res.status === 200) {
             yield put(successGetRole({
@@ -375,9 +375,9 @@ function* GetPermissionHandler({ payload }) {
 
 
 function* SavePermissionHandler({ payload }) {
-    console.log(payload)
+
     const res = yield call(CreatePermission, sessionStorage.getItem('token'), payload)
-    console.log(res)
+   
     yield put(hideAuthLoader())
     yield put(hideModal())
     if (res.status === 201) {

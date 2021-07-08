@@ -8,7 +8,7 @@ const SignIn = () => {
     const history = useHistory();
 
     useEffect(() => {
-        if (authUser !== null) {
+        if (authUser !== null ) {
             history.push('/');
         }
     });

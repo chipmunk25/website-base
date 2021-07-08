@@ -1,5 +1,6 @@
 import {
     SUCCESS_GET_ABOUT, SUCCESS_SAVE_ABOUT, SUCCESS_UPDATE_ABOUT,
+    SUCCESS_GET_MASTHEAD, SUCCESS_SAVE_MASTHEAD, SUCCESS_UPDATE_MASTHEAD,
     SUCCESS_GET_LINKGROUP, SUCCESS_SAVE_LINKGROUP, SUCCESS_UPDATE_LINKGROUP, SUCCESS_DELETE_LINKGROUP,
     SUCCESS_GET_USEFULLINKS, SUCCESS_SAVE_USEFULLINKS, SUCCESS_UPDATE_USEFULLINKS, SUCCESS_DELETE_USEFULLINKS,
     SUCCESS_GET_PUBLICATION, SUCCESS_SAVE_PUBLICATION, SUCCESS_UPDATE_PUBLICATION, SUCCESS_DELETE_PUBLICATION,
@@ -8,6 +9,7 @@ import {
 } from "../actions/constants"
 const INIT_STATE = {
     aboutLists: [],
+    mastheadLists: [],
     linkGroupLists: [],
     usefulLinkLists: [],
     publicationLists: [],
@@ -44,6 +46,32 @@ const webpages = (state = INIT_STATE, action) => {
                 newlist[index] = action.payload;
             }
             return { ...state, aboutLists: newlist }
+
+        case SUCCESS_GET_MASTHEAD:
+            return {
+                ...state, ...action.payload
+            }
+        case SUCCESS_SAVE_MASTHEAD:
+            index = state.mastheadLists.indexOf(state.mastheadLists.find(item => parseInt(action.payload.id)
+                === parseInt(item.id)));
+            newlist = [...state.mastheadLists];
+            if (index > -1) {
+                newlist[index] = action.payload;
+                return { ...state, mastheadLists: newlist }
+            } else {
+                return {
+                    ...state, mastheadLists: [...state.mastheadLists, { ...action.payload }]
+                }
+            }
+
+        case SUCCESS_UPDATE_MASTHEAD:
+            index = state.mastheadLists.indexOf(state.mastheadLists.find(item => parseInt(action.payload.id)
+                === parseInt(item.id)));
+            newlist = [...state.mastheadLists];
+            if (index > -1) {
+                newlist[index] = action.payload;
+            }
+            return { ...state, mastheadLists: newlist }
 
         case SUCCESS_GET_LINKGROUP:
             return {
@@ -150,7 +178,7 @@ const webpages = (state = INIT_STATE, action) => {
                 ...state,
                 memberLists: state.memberLists.filter((item) => parseInt(item.id) !== parseInt(action.payload.id)),
             };
-            
+
         case SUCCESS_GET_SIMPLECHANGE:
             return {
                 ...state, ...action.payload
@@ -180,7 +208,7 @@ const webpages = (state = INIT_STATE, action) => {
                 ...state,
                 simplechangeLists: state.simplechangeLists.filter((item) => parseInt(item.id) !== parseInt(action.payload.id)),
             };
-            
+
         default:
             return state
     }

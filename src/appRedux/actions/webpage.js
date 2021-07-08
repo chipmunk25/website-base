@@ -6,6 +6,9 @@ import {
     REQUEST_GET_ABOUT, SUCCESS_GET_ABOUT, REQUEST_SAVE_ABOUT, SUCCESS_SAVE_ABOUT,
     REQUEST_UPDATE_ABOUT, SUCCESS_UPDATE_ABOUT, REQUEST_DELETE_ABOUT, SUCCESS_DELETE_ABOUT,
 
+    REQUEST_GET_MASTHEAD, SUCCESS_GET_MASTHEAD, REQUEST_SAVE_MASTHEAD, SUCCESS_SAVE_MASTHEAD,
+    REQUEST_UPDATE_MASTHEAD, SUCCESS_UPDATE_MASTHEAD, REQUEST_DELETE_MASTHEAD, SUCCESS_DELETE_MASTHEAD,
+
  REQUEST_GET_LINKGROUP, SUCCESS_GET_LINKGROUP, REQUEST_SAVE_LINKGROUP, SUCCESS_SAVE_LINKGROUP,
     REQUEST_UPDATE_LINKGROUP, SUCCESS_UPDATE_LINKGROUP, REQUEST_DELETE_LINKGROUP, SUCCESS_DELETE_LINKGROUP,
 
@@ -35,6 +38,14 @@ export const successUpdateAbout = createAction(SUCCESS_UPDATE_ABOUT);
 export const requestDeleteAbout = createAction(REQUEST_DELETE_ABOUT);
 export const successDeleteAbout = createAction(SUCCESS_DELETE_ABOUT);
 
+export const requestGetMasthead = createAction(REQUEST_GET_MASTHEAD);
+export const successGetMasthead = createAction(SUCCESS_GET_MASTHEAD);
+export const requestSaveMasthead = createAction(REQUEST_SAVE_MASTHEAD);
+export const successSaveMasthead = createAction(SUCCESS_SAVE_MASTHEAD);
+export const requestUpdateMasthead = createAction(REQUEST_UPDATE_MASTHEAD);
+export const successUpdateMasthead = createAction(SUCCESS_UPDATE_MASTHEAD);
+export const requestDeleteMasthead = createAction(REQUEST_DELETE_MASTHEAD);
+export const successDeleteMasthead = createAction(SUCCESS_DELETE_MASTHEAD);
 
 
 export const requestGetLinkGroup = createAction(REQUEST_GET_LINKGROUP);

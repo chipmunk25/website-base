@@ -2649,6 +2649,21 @@ h6 {
   box-shadow: 1px 1px 7px rgb(0 0 0 / 10%);
 }
 
+.profile-form {
+  position: relative;
+  max-width: 470px;
+  max-height: 450px;
+  margin-top: 80px;
+  padding: 30px 30px 32px 30px;
+  text-align: center;
+  color: #212121;
+  border: 1px solid #ddd;
+  border-radius: 0;
+  background-color: #fff;
+  -webkit-box-shadow: 1px 1px 7px rgb(0 0 0 / 10%);
+  box-shadow: 1px 1px 7px rgb(0 0 0 / 10%);
+}
+
 .login-wrapper {
   height: 100vh;
 }
@@ -5890,4 +5905,8 @@ strong {
   .gx-mx-xxl-auto {
     margin-left: auto !important;
   }
+}
+
+.masthead-description span{
+  background-color: transparent !important;
 }

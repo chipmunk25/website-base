@@ -19,7 +19,7 @@ const MainApp = () => {
                     <App match={match} /> 
                     <Footer>
                         <div className="gx-layout-footer-content">
-                            Copyright Chipsoft GH
+                            Developed by Chipsoft GH
                         </div>
                     </Footer>
                 </Content>

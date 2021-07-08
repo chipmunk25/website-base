@@ -1,25 +1,84 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Clients from "../AppClient/clients"
+import { RenderPage } from "utils/page"
+
+import { useSelector } from 'react-redux';
+import DisplayMembers from './DisplayMembers';
+
+import FuzzySearch from 'fuzzy-search';
+import { FILE_URL } from "appRedux/api/root"
+let searcher;
 const AppServices = () => {
+    const { simplechangeLists, memberLists } = useSelector(({ webpages }) => webpages);
+    const [dataSource, setDataSource] = useState([])
+    searcher = new FuzzySearch(memberLists, ["title", "description"], { caseSensitive: false });
+    useEffect(() => {
+        const LoadData = async () => {
+            setDataSource(await memberLists)
+        }
+        LoadData()
+    }, [memberLists])
+    const OnSearch = (e) => setDataSource(searcher.search(e.target.value))
+
     return (
         <section id="membership" className=" section services">
 
             <div className="container" data-aos="fade-up">
 
                 <header className="section-header">
-                  {/*   <h2>Membership</h2> */}
-                    <p>Membership</p>
+                    <p>{RenderPage(simplechangeLists, "members") ? RenderPage(simplechangeLists, "members").title : ""}</p>
                 </header>
                 <div className="row gy-4">
                     <div className="col-lg-2"></div>
                     <div className="col-lg-8 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="200">
-                        <p>Any UK Market Conformity Assessment Body designated as an Approved Body for the purposes of Equipment and Protective Systems Intended for Use in Potentially Explosive Atmospheres Regulations 2016 (S.I. 2016/1107 as amended)
-                        must commit in writing to becoming a Member of the UKEX ABG.</p>
+                        <p>{RenderPage(simplechangeLists, "members") ? RenderPage(simplechangeLists, "members").description : ""}</p>
                     </div>
                     <div className="col-lg-2"></div>
                 </div>
                 <div className="clients-slider swiper-container">
                     <Clients />
+                </div>
+                <div className="row gy-4">
+                    <div className="col-lg-12">
+                        <DisplayMembers
+                            placeholder="Search for Members"
+                            SearchForHandler={OnSearch}
+                            dataSource={dataSource}
+                            columns={[
+                                {
+                                    title: 'ID',
+                                    dataIndex: 'id',
+                                    key: 'id',
+                                    width: 70,
+                                    fixed: 'left',
+                                }, {
+                                    title: 'Title',
+                                    dataIndex: 'title',
+                                    key: 'title',
+                                }, {
+                                    title: 'Description',
+                                    dataIndex: 'description',
+                                    key: 'description',
+                                }, {
+                                    title: 'Logo',
+                                    dataIndex: 'logo',
+                                    key: 'logo',
+                                    render: logo => (
+                                        <img
+                                            src={FILE_URL + "/" + logo}
+                                            style={{ height: 30, width: 70 }}
+                                        //size="large"
+                                        />
+                                    )
+                                }, {
+                                    title: 'Url',
+                                    dataIndex: 'url',
+                                    key: 'url',
+                                },
+
+                            ]}
+                        />
+                    </div>
                 </div>
                 {/*   <div className="row gy-4">
 

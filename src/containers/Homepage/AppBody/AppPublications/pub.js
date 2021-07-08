@@ -22,12 +22,16 @@ const DPub = ({ linkGroupLists }) => {
         }
         LoadData()
     }, [pub])
-    console.log(searchpub)
+
+
     return (
         <div>
             <header className="section-header">
-                <h2>Publications</h2>
-                <p>{pubTitle}</p>
+                <p>Publications</p>
+                <div style={{ paddingTop: 20 }}>
+                    <h2>{pubTitle}</h2>
+
+                </div>
             </header>
             <Row justify="space-around">
                 <Col xs={24} sm={24} md={24} lg={24} xl={6}>
@@ -60,14 +64,29 @@ const DPub = ({ linkGroupLists }) => {
                                 ),
                                 responsive: ["xs"]
                             },
-                            { title: 'Document No.', dataIndex: 'doc_number', key: 'doc_number', responsive: ['lg', 'md', 'sm'], },
-                            { title: 'Posted Date', dataIndex: 'created_At', key: 'created_At', width: 120, responsive: ['lg', 'md', 'sm'], },
-                            { title: 'Title', dataIndex: 'title', key: 'title', responsive: ['lg', 'md', 'sm'], },
-                            { title: 'Description', dataIndex: 'description', key: 'description', responsive: ['lg', 'md', 'sm'], },
+                            {
+                                title: 'Document No.', dataIndex: 'doc_number', key: 'doc_number', responsive: ['lg', 'md', 'sm'],
+                                sorter: (a, b) => a.doc_number.length - b.doc_number.length,
+                                sortDirections: ['descend', 'ascend'],
+                            },
+                            {
+                                title: 'Posted Date', dataIndex: 'created_At', key: 'created_At', width: 120, responsive: ['lg', 'md', 'sm'],
+                                sorter: (a, b) => a.created_At.length - b.created_At.length,
+                                sortDirections: ['descend', 'ascend'],
+                            },
+                            {
+                                title: 'Title', dataIndex: 'title', key: 'title', responsive: ['lg', 'md', 'sm'],
+                                sorter: (a, b) => a.title.length - b.title.length,
+                                sortDirections: ['descend', 'ascend'],
+                            },
+                            {
+                                title: 'Description', dataIndex: 'description', key: 'description', responsive: ['lg', 'md', 'sm'],
+                                sorter: (a, b) => a.description.length - b.description.length,
+                                sortDirections: ['descend', 'ascend'],
+                            },
                             {
                                 title: 'Download', dataIndex: 'access_type', key: 'access_type', responsive: ['lg', 'md', 'sm'],
                                 render: (access_type, record) => {
-                                    console.log(record)
                                     return (
                                         <div>
                                             {

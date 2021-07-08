@@ -19,7 +19,7 @@ const LoginForm = () => {
 
     //   const { user, authUser, } = useSelector(({ auth }) => auth);
     const onFinish = async values => {
-        console.log(values)
+        //  console.log(values)
         //  const data = { logs, ...values }
         dispatch(showAuthLoader());
         dispatch(signInUser(values));

@@ -3,8 +3,10 @@ import logo from "assets/img/logo.png"
 
 import { Markup } from 'interweave';
 import { useDispatch, useSelector } from 'react-redux';
+import { RenderPage } from "utils/page"
 const AppFooter = () => {
-    const { aboutLists } = useSelector(({ webpages }) => webpages);
+    const { aboutLists, simplechangeLists } = useSelector(({ webpages }) => webpages);
+
     return (
         <footer id="footer" className="footer">
             <div className="footer-top">
@@ -49,11 +51,15 @@ const AppFooter = () => {
 
                         <div className="col-lg-3 col-md-12 footer-contact text-center text-md-start">
                             <h4>Contact Us</h4>
+                            <p>{RenderPage(simplechangeLists, "contact") ?
+                                <Markup content={JSON.parse(RenderPage(simplechangeLists, "contact").description)} />
+                                :
+                                ""}</p>
 
-                            <p>Secretary to the UKEX Approved Bodies Group BEAMA Ltd <br />
+                            {/*  <p>Secretary to the UKEX Approved Bodies Group BEAMA Ltd <br />
                                 Rotherwick House <br />
                                 3 Thomas More Street <br />
-                                London, E1W 1YZ</p>
+                                London, E1W 1YZ</p> */}
 
                         </div>
 
@@ -63,9 +69,9 @@ const AppFooter = () => {
 
             <div className="container">
                 <div className="copyright">
-                    &copy; Copyright <strong><span>UKEXABG </span></strong>. All Rights Reserved </div>
+                    &copy;  <strong><span>UKEXABG </span></strong>. All Rights Reserved </div>
                 <div className="credits">
-                    Designed by <a href="https://chipsoftgh.com/">chipsoftgh</a>
+                    Developed by <a href="https://chipsoftgh.com/">chipsoftgh</a>
                 </div>
             </div>
 

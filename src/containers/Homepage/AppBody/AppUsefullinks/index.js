@@ -9,10 +9,7 @@ import { showAuthLoader, } from "appRedux/actions/common"
 const AppUsefullinks = () => {
     const dispatch = useDispatch()
     const { linkGroupLists } = useSelector(({ webpages }) => webpages);
-    useEffect(() => {
-        dispatch(showAuthLoader())
-        dispatch(requestGetLinkGroup({ company_id: 1, del_flg: 0 }))
-    }, [])
+    
 
     const RenderLinks = (item) => {
         const lendth = item.usefullinks_ms.length
@@ -39,7 +36,7 @@ const AppUsefullinks = () => {
         <div id="usefullinks" className="usefullinks">
             <div className="usefullinks-top">
                 <header className="section-header">
-                    <h2>UsefulLinks</h2>
+                   {/*  <h2>UsefulLinks</h2> */}
                     <p>Useful Links</p>
                 </header>
                 <div className="container">

@@ -24,7 +24,7 @@ const PublicationList = ({ publicationLists }) => {
             prevPageNumber: pageNumber
         })
     }
-    console.log(publicationLists)
+   
     return (
         <div className="gx-contact-main-content">
             {state.rowHits.length > 0 &&

@@ -5,7 +5,7 @@ import { signOutUser } from "appRedux/actions/auth";
 import { useHistory, Link } from 'react-router-dom';
 import _ from "lodash";
 import moment from "moment"
-import { getClientIp } from "utils/getTheIp"
+
 import Auxiliary from "utils/Auxiliary";
 import {
     LogoutOutlined
@@ -13,20 +13,10 @@ import {
 const UserInfo = () => {
 
     const dispatch = useDispatch();
-    const { user,authUser } = useSelector(({ auth }) => auth);
+    const { user, authUser } = useSelector(({ auth }) => auth);
     const history = useHistory();
-    const handleLogout= async () => {
-        const operation = `logout successful ${user.email}`
-        const user_ipaddress = await getClientIp()
-        const logs = {
-          user_ipaddress,
-          company_id: user.company_id,
-          trans_date: moment().format("YYYY-MM-DD"),
-          operation,
-          created_user: authUser,
-        }
-        dispatch(signOutUser({logs}))
-      //  history.replace({ pathname: '/login', })
+    const handleLogout = async () => {
+        dispatch(signOutUser())
     }
     const userMenuOptions = (
 

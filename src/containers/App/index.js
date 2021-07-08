@@ -6,6 +6,7 @@ import { Redirect, Route, Switch, useLocation, useRouteMatch, useHistory } from 
 import Homepage from '../Homepage';
 import SignIn from '../SignIn';
 import ForgotPassword from '../Forgot';
+import UserProfile from '../Profile';
 import { setInitUrl } from "appRedux/actions/auth";
 const RestrictedRoute = ({ component: Component, location, authUser, ...rest }) =>
     <Route
@@ -35,10 +36,10 @@ const App = () => {
 
     useEffect(() => {
         if (location.pathname === '/') {
-
+          
             if (authUser === null) {
                 history.push('/home');
-            } else if (initURL === '' || initURL === '/' || initURL === '/home') {
+            } else if (initURL === '' || initURL === '/' || initURL === '/home' || initURL === '/signin') {
                 if (user.role === "MEMBERS") {
                     history.push('/home');
                 } else {
@@ -55,6 +56,7 @@ const App = () => {
             <Route exact path='/home' component={Homepage} />
             <Route exact path='/signin' component={SignIn} />
             <Route exact path='/forgot' component={ForgotPassword} />
+            <Route exact path='/profile' component={UserProfile} />
             <RestrictedRoute path={`${match.url}`} authUser={authUser} location={location}
                 component={MainApp} />
         </Switch>

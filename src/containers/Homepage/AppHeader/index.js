@@ -3,12 +3,20 @@ import logo from "assets/img/logo.png"
 
 import { Link } from 'react-router-dom';
 import Scrollspy from 'react-scrollspy'
+import { useDispatch, useSelector } from "react-redux";
+import { signOutUser } from "appRedux/actions/auth";
+
+import { TAB_SIZE } from "appRedux/actions/ThemeSetting";
+import Auxiliary from "utils/Auxiliary";
+import UserInfo from './UserInfo';
 const AppHeader = () => {
+    const dispatch = useDispatch();
     const [isSticky, setSticky] = useState(false);
     const [isToggled, setToggle] = useState(false);
     const [isActive, setActive] = useState("");
+    const { user, authUser } = useSelector(({ auth }) => auth);
 
-
+    const { width, } = useSelector(({ settings }) => settings);
 
     const ref = useRef(null);
     const handleScroll = () => {
@@ -61,6 +69,7 @@ const AppHeader = () => {
         }
 
     }
+    const handleLogout = async () => dispatch(signOutUser())
 
     return (
         <header id="header" className={isSticky ? "header fixed-top header-scrolled" : "header fixed-top"} ref={ref}>
@@ -78,7 +87,9 @@ const AppHeader = () => {
                         <li onClick={() => closeHandler("membership")}><a className={`nav-link scrollto ${isActive === "membership" ? "active" : ""} `} href="#membership">Members</a></li>
                         <li onClick={() => closeHandler("publications")}><a className={`nav-link scrollto ${isActive === "publications" ? "active" : ""} `} href="#publications">Publications</a></li>
                         <li onClick={() => closeHandler("usefullinks")}><a className={`nav-link scrollto ${isActive === "usefullinks" ? "active" : ""} `} href="#usefullinks">Useful Links</a></li>
-                        <li  ><Link to={`signin`}> <span className="getstarted">signin</span></Link> </li>
+                        {authUser ?
+                            <li className="gx-user-nav" style={{ paddingLeft: 20, cursor: 'pointer' }}><UserInfo /></li>
+                            : <li  ><Link to={`signin`}> <span className="getstarted">signin</span></Link> </li>}
                     </Scrollspy>
                     {/*     <li><a className="nav-link scrollto" href="#team">Team</a></li> */}
                     {/*  <li><a href="blog.html">Blog</a></li>

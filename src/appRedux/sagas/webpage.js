@@ -2,6 +2,7 @@
 import { all, call, fork, put, takeEvery } from "redux-saga/effects";
 import { 
     CreateAbout, ChangeAbout, RemoveAbout, getAboutFromApi,
+    CreateMasthead, ChangeMasthead, RemoveMasthead, getMastheadFromApi,
     CreateLinkGroup, ChangeLinkGroup, RemoveLinkGroup, getLinkGroupFromApi,
     CreateUsefulLinks, ChangeUsefulLinks, RemoveUsefulLinks, getUsefulLinksFromApi,
     CreatePublication, ChangePublication, RemovePublication, getPublicationFromApi,
@@ -10,6 +11,7 @@ import {
  } from "../api/webpage"
 import { 
     successSaveAbout, successDeleteAbout, successUpdateAbout, successGetAbout,
+    successSaveMasthead, successDeleteMasthead, successUpdateMasthead, successGetMasthead,
     successSaveLinkGroup, successDeleteLinkGroup, successUpdateLinkGroup, successGetLinkGroup,
     successSaveUsefulLinks, successDeleteUsefulLinks, successUpdateUsefulLinks, successGetUsefulLinks,
     successSavePublication, successDeletePublication, successUpdatePublication, successGetPublication,
@@ -20,6 +22,7 @@ import { hideAuthLoader, hideModal } from "../actions/common"
 
 import {
      REQUEST_GET_ABOUT, REQUEST_SAVE_ABOUT, REQUEST_DELETE_ABOUT, REQUEST_UPDATE_ABOUT,
+     REQUEST_GET_MASTHEAD, REQUEST_SAVE_MASTHEAD, REQUEST_DELETE_MASTHEAD, REQUEST_UPDATE_MASTHEAD,
      REQUEST_GET_LINKGROUP, REQUEST_SAVE_LINKGROUP, REQUEST_DELETE_LINKGROUP, REQUEST_UPDATE_LINKGROUP,
      REQUEST_GET_USEFULLINKS, REQUEST_SAVE_USEFULLINKS, REQUEST_DELETE_USEFULLINKS, REQUEST_UPDATE_USEFULLINKS,
      REQUEST_GET_PUBLICATION, REQUEST_SAVE_PUBLICATION, REQUEST_DELETE_PUBLICATION, REQUEST_UPDATE_PUBLICATION,
@@ -82,6 +85,59 @@ function* DeleteAboutHandler({ payload }) {
 }
 
 
+function* GetMastheadHandler({ payload }) {
+    const res = yield call(getMastheadFromApi, sessionStorage.getItem('token'), payload)
+    yield put(hideAuthLoader())
+    if (res.status === 200) {
+        yield put(successGetMasthead({ mastheadLists: res.data.result }))
+    }
+    else {
+        openNotificationWithIcon('error', 'Error', res.error)
+    }
+}
+
+
+function* SaveMastheadHandler({ payload }) {
+    const res = yield call(CreateMasthead, sessionStorage.getItem('token'), payload)
+    yield put(hideAuthLoader())
+    yield put(hideModal())
+    if (res.status === 201) {
+        yield put(successSaveMasthead(res.data.result))
+        openNotificationWithIcon("success", 'Success', 'Record Saved Successfully')
+    }
+    else {
+        openNotificationWithIcon('error', 'Error', res.error)
+    }
+}
+
+
+function* UpdateMastheadHandler({ payload }) {
+    const res = yield call(ChangeMasthead, sessionStorage.getItem('token'), payload)
+    yield put(hideAuthLoader())
+    yield put(hideModal())
+    if (res.status === 201) {
+        yield put(successUpdateMasthead(res.data.result))
+        openNotificationWithIcon("success", 'Success', 'Record Updated Successfully')
+    }
+    else {
+        openNotificationWithIcon('error', 'Error', res.error)
+    }
+}
+
+function* DeleteMastheadHandler({ payload }) {
+    const res = yield call(RemoveMasthead, sessionStorage.getItem('token'), payload)
+    yield put(hideAuthLoader())
+    yield put(hideModal())
+    if (res.status === 201) {
+        yield put(successDeleteMasthead(res.data.result))
+        openNotificationWithIcon("success", 'Success', 'Record Deleted Successfully')
+    }
+    else {
+        openNotificationWithIcon('error', 'Error', res.error)
+    }
+}
+
+
 function* GetLinkGroupHandler({ payload }) {
     const res = yield call(getLinkGroupFromApi, sessionStorage.getItem('token'), payload)
     yield put(hideAuthLoader())
@@ -110,7 +166,7 @@ function* SaveLinkGroupHandler({ payload }) {
 
 function* UpdateLinkGroupHandler({ payload }) {
     const res = yield call(ChangeLinkGroup, sessionStorage.getItem('token'), payload)
-    console.log(res)
+   
     yield put(hideAuthLoader())
     yield put(hideModal())
     if (res.status === 201) {
@@ -164,7 +220,7 @@ function* SaveUsefulLinksHandler({ payload }) {
 
 function* UpdateUsefulLinksHandler({ payload }) {
     const res = yield call(ChangeUsefulLinks, sessionStorage.getItem('token'), payload)
-    console.log(res)
+    
     yield put(hideAuthLoader())
     yield put(hideModal())
     if (res.status === 201) {
@@ -205,7 +261,7 @@ function* GetPublicationHandler({ payload }) {
 
 function* SavePublicationHandler({ payload }) {
     const res = yield call(CreatePublication, sessionStorage.getItem('token'), payload)
-    console.log(res)
+    
     yield put(hideAuthLoader())
     yield put(hideModal())
     if (res.status === 201) {
@@ -220,7 +276,7 @@ function* SavePublicationHandler({ payload }) {
 
 function* UpdatePublicationHandler({ payload }) {
     const res = yield call(ChangePublication, sessionStorage.getItem('token'), payload)
-    console.log(res)
+  
     yield put(hideAuthLoader())
     yield put(hideModal())
     if (res.status === 201) {
@@ -260,7 +316,7 @@ function* GetMemberHandler({ payload }) {
 
 function* SaveMemberHandler({ payload }) {
     const res = yield call(CreateMember, sessionStorage.getItem('token'), payload)
-    console.log(res)
+    
     yield put(hideAuthLoader())
     yield put(hideModal())
     if (res.status === 201) {
@@ -275,7 +331,7 @@ function* SaveMemberHandler({ payload }) {
 
 function* UpdateMemberHandler({ payload }) {
     const res = yield call(ChangeMember, sessionStorage.getItem('token'), payload)
-    console.log(res)
+  
     yield put(hideAuthLoader())
     yield put(hideModal())
     if (res.status === 201) {
@@ -314,8 +370,9 @@ function* GetSimpleChangeHandler({ payload }) {
 
 
 function* SaveSimpleChangeHandler({ payload }) {
+  
     const res = yield call(CreateSimpleChange, sessionStorage.getItem('token'), payload)
-    console.log(res)
+  
     yield put(hideAuthLoader())
     yield put(hideModal())
     if (res.status === 201) {
@@ -330,7 +387,7 @@ function* SaveSimpleChangeHandler({ payload }) {
 
 function* UpdateSimpleChangeHandler({ payload }) {
     const res = yield call(ChangeSimpleChange, sessionStorage.getItem('token'), payload)
-    console.log(res)
+    
     yield put(hideAuthLoader())
     yield put(hideModal())
     if (res.status === 201) {
@@ -363,6 +420,11 @@ export function* ActionWatchers() {
     yield takeEvery(REQUEST_SAVE_ABOUT, SaveAboutHandler)
     yield takeEvery(REQUEST_DELETE_ABOUT, DeleteAboutHandler)
     yield takeEvery(REQUEST_UPDATE_ABOUT, UpdateAboutHandler)
+
+   yield takeEvery(REQUEST_GET_MASTHEAD, GetMastheadHandler)
+    yield takeEvery(REQUEST_SAVE_MASTHEAD, SaveMastheadHandler)
+    yield takeEvery(REQUEST_DELETE_MASTHEAD, DeleteMastheadHandler)
+    yield takeEvery(REQUEST_UPDATE_MASTHEAD, UpdateMastheadHandler)
 
      yield takeEvery(REQUEST_GET_LINKGROUP, GetLinkGroupHandler)
     yield takeEvery(REQUEST_SAVE_LINKGROUP, SaveLinkGroupHandler)

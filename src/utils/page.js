@@ -1,0 +1,1 @@
+export const RenderPage = (array, key) => array && array.find(item => item.page_type === key)

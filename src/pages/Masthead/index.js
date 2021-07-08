@@ -4,25 +4,23 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Card, Form, Input, Row, Col, Button } from "antd";
 import { SaveOutlined } from "@ant-design/icons"
 
-
-import { convertToRaw, 
-     EditorState, 
-     } from "draft-js";
+import ReactHtmlParser from 'react-html-parser';
+import { convertToRaw, ContentState, convertFromHTML, EditorState, convertFromRaw } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import draftToHtml from "draftjs-to-html";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 import ImageUploader from "./ImageUpload";
 
-import { requestSaveAbout, requestGetAbout } from "appRedux/actions/webpage"
+import { requestSaveMasthead, requestGetMasthead } from "appRedux/actions/webpage"
 import { showAuthLoader, } from "appRedux/actions/common"
 import { FILE_URL } from '../../appRedux/api/root';
 import ConvertFromHTMLtoTEXT from "utils/ConvertHTMLtoText"
 
-const About = () => {
+const Masthead = () => {
     const dispatch = useDispatch()
     const { authUser, user } = useSelector(({ auth }) => auth);
-    const { aboutLists } = useSelector(({ webpages }) => webpages);
+    const { mastheadLists } = useSelector(({ webpages }) => webpages);
     const [state, setState] = useState({
         description: EditorState.createEmpty(),
         aboutImage: null, id: undefined,
@@ -42,11 +40,11 @@ const About = () => {
     //  console.log(aboutLists)
     useEffect(() => {
         dispatch(showAuthLoader())
-        dispatch(requestGetAbout({ company_id: 1, del_flg: 0 }))
+        dispatch(requestGetMasthead({ company_id: 1, del_flg: 0 }))
     }, [])
 
     useEffect(() => {
-        const detail = aboutLists[0]
+        const detail = mastheadLists[0]
         //  console.log(detail)
         if (detail) {
             const description = ConvertFromHTMLtoTEXT(JSON.parse(detail.description))
@@ -58,24 +56,24 @@ const About = () => {
             setState({ ...state, id: detail.id, description, url: FILE_URL + detail.aboutImage, filepath: detail.aboutImage })
         }
 
-    }, [aboutLists])
+    }, [mastheadLists])
 
     const SaveHandler = async (record) => {
         const data = {
             ...record, ...state,
             description: JSON.stringify(ConvertToText(state.description)),
             del_flg: 0, created_user: authUser,
-            company_id: user.company_id, group_name: 'about'
+            company_id: user.company_id, group_name: 'masthead'
         }
       //  console.log(data)
         dispatch(showAuthLoader())
-        dispatch(requestSaveAbout(data))
+        dispatch(requestSaveMasthead(data))
 
     }
     // console.log(state)
     return (
         <div>
-            <Card className="gx-card" title={"About"}>
+            <Card className="gx-card" title={"Masthead"}>
                 <Form name="Add" onFinish={SaveHandler} form={form} onFinishFailed={onFinishFailed} size="large"
                     labelCol={{ span: 6, }} wrapperCol={{ span: 16, }}>
                     <Row>
@@ -137,4 +135,4 @@ const About = () => {
 
 const ConvertToText = (description) => draftToHtml(convertToRaw(description.getCurrentContent()))
 
-export default About;
+export default Masthead;

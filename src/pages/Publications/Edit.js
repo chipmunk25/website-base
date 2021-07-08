@@ -25,7 +25,7 @@ const Edit = ({ detail, onFinish, onFinishFailed, hideModalLoader, linkGroupList
         }, 1500);
     }, [detail])
     const onChange = (value, text) => {
-        console.log(value, text)
+     //   console.log(value, text)
         setState({ ...state, group_name: text.children })
     }
     return (

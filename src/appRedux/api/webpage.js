@@ -61,6 +61,67 @@ export function* RemoveAbout(token, data) {
     }
 }
 
+export function* getMastheadFromApi(token, { company_id, del_flg }) {
+    const params = new URLSearchParams();
+    params.append('company_id', company_id)
+
+    try {
+        return yield API().get(`/masthead/${del_flg}`, { params, headers: { Authorization: "Bearer " + token } })
+    } catch (error) {
+        return yield error.response
+    }
+}
+
+export function* CreateMasthead(token, data) {
+    try {
+        let withOrWithoutImage
+        if (data.aboutImage === null || data.aboutImage === "null") {
+            withOrWithoutImage = yield API().post(`/masthead`, {
+                ...data
+            }, { headers: { Authorization: "Bearer " + token } })
+        } else {
+            var form_data = new FormData();
+            if (data.id) {
+                form_data.append("id", data.id.toString() )
+                //form_data.append("id", data.id ? data.id.toString() : 0)
+
+            }
+            form_data.append("title", data.title)
+           // form_data.append("id", data.id ? data.id.toString() : 0)
+            form_data.append("description", data.description)
+            form_data.append("filepath", data.filepath)
+            form_data.append("subtitle", data.subtitle)
+            form_data.append("group_name", data.group_name)
+            form_data.append("company_id", data.company_id.toString())
+            form_data.append("del_flg", data.del_flg.toString())
+            form_data.append("created_user", data.created_user.toString())
+            form_data.append('avatar', data.aboutImage.fileList[0].originFileObj);
+            withOrWithoutImage = yield API().post(`/masthead`, form_data,
+                { headers: { Authorization: "Bearer " + token } })
+        }
+        return withOrWithoutImage
+    } catch (error) {
+        return yield error.response
+    }
+}
+
+
+export function* ChangeMasthead(token, data) {
+    try {
+        return yield API().patch(`/masthead/${data.id}`, { ...data }, { headers: { Authorization: "Bearer " + token } })
+    } catch (error) {
+        return yield error.response
+    }
+}
+
+export function* RemoveMasthead(token, data) {
+    try {
+        return yield API().patch(`/masthead/${data.id}/soft`, { ...data }, { headers: { Authorization: "Bearer " + token } })
+    } catch (error) {
+        return yield error.response
+    }
+}
+
 export function* getLinkGroupFromApi(token, { company_id, del_flg }) {
     const params = new URLSearchParams();
     params.append('company_id', company_id)
