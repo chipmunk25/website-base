@@ -76,7 +76,7 @@ function* DeleteAboutHandler({ payload }) {
     yield put(hideAuthLoader())
     yield put(hideModal())
     if (res.status === 201) {
-        yield put(successDeleteAbout(res.data.result))
+        yield put(successDeleteAbout(res.data.id))
         openNotificationWithIcon("success", 'Success', 'Record Deleted Successfully')
     }
     else {
@@ -129,7 +129,7 @@ function* DeleteMastheadHandler({ payload }) {
     yield put(hideAuthLoader())
     yield put(hideModal())
     if (res.status === 201) {
-        yield put(successDeleteMasthead(res.data.result))
+        yield put(successDeleteMasthead(res.data.id))
         openNotificationWithIcon("success", 'Success', 'Record Deleted Successfully')
     }
     else {
@@ -183,7 +183,7 @@ function* DeleteLinkGroupHandler({ payload }) {
     yield put(hideAuthLoader())
     yield put(hideModal())
     if (res.status === 201) {
-        yield put(successDeleteLinkGroup(res.data.result))
+        yield put(successDeleteLinkGroup(res.data.id))
         openNotificationWithIcon("success", 'Success', 'Record Deleted Successfully')
     }
     else {
@@ -237,7 +237,7 @@ function* DeleteUsefulLinksHandler({ payload }) {
     yield put(hideAuthLoader())
     yield put(hideModal())
     if (res.status === 201) {
-        yield put(successDeleteUsefulLinks(res.data.result))
+        yield put(successDeleteUsefulLinks(res.data.id))
         openNotificationWithIcon("success", 'Success', 'Record Deleted Successfully')
     }
     else {
@@ -293,7 +293,7 @@ function* DeletePublicationHandler({ payload }) {
     yield put(hideAuthLoader())
     yield put(hideModal())
     if (res.status === 201) {
-        yield put(successDeletePublication(res.data.result))
+        yield put(successDeletePublication(res.data.id))
         openNotificationWithIcon("success", 'Success', 'Record Deleted Successfully')
     }
     else {
@@ -348,7 +348,7 @@ function* DeleteMemberHandler({ payload }) {
     yield put(hideAuthLoader())
     yield put(hideModal())
     if (res.status === 201) {
-        yield put(successDeleteMember(res.data.result))
+        yield put(successDeleteMember(res.data.id))
         openNotificationWithIcon("success", 'Success', 'Record Deleted Successfully')
     }
     else {
@@ -401,10 +401,11 @@ function* UpdateSimpleChangeHandler({ payload }) {
 
 function* DeleteSimpleChangeHandler({ payload }) {
     const res = yield call(RemoveSimpleChange, sessionStorage.getItem('token'), payload)
+  //  console.log(res)
     yield put(hideAuthLoader())
     yield put(hideModal())
     if (res.status === 201) {
-        yield put(successDeleteSimpleChange(res.data.result))
+        yield put(successDeleteSimpleChange(res.data.id))
         openNotificationWithIcon("success", 'Success', 'Record Deleted Successfully')
     }
     else {

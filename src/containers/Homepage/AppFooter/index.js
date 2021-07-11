@@ -31,7 +31,7 @@ const AppFooter = () => {
                             <ul>
                                 <li><i className="bi bi-chevron-right"></i> <a href="#home">Home</a></li>
                                 <li><i className="bi bi-chevron-right"></i> <a href="#about">About us</a></li>
-                                <li><i className="bi bi-chevron-right"></i> <a href="#membership">Membership</a></li>
+                                <li><i className="bi bi-chevron-right"></i> <a href="#members">Members</a></li>
                                 <li><i className="bi bi-chevron-right"></i> <a href="#publications">Publications</a></li>
                                 <li><i className="bi bi-chevron-right"></i> <a href="#usefullinks">Useful Links</a></li>
                                 {/*  <li><i className="bi bi-chevron-right"></i> <a href="#">Co</a></li> */}

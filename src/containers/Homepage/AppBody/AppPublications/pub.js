@@ -79,6 +79,9 @@ const DPub = ({ linkGroupLists }) => {
                                 sorter: (a, b) => a.title.length - b.title.length,
                                 sortDirections: ['descend', 'ascend'],
                             },
+                            /*  {
+                                 title: 'Access', key: 'access_type', dataIndex: 'access_type'
+                             }, */
                             {
                                 title: 'Description', dataIndex: 'description', key: 'description', responsive: ['lg', 'md', 'sm'],
                                 sorter: (a, b) => a.description.length - b.description.length,
@@ -89,7 +92,10 @@ const DPub = ({ linkGroupLists }) => {
                                 render: (access_type, record) => {
                                     return (
                                         <div>
-                                            {
+                                            <a target="_BLANK" href={FILE_URL + record.url}>
+                                                {record.doc_number}
+                                            </a>
+                                            {/* {
                                                 access_type === "PUBLIC" || (access_type === "PROTECTED" && authUser) ?
                                                     <a target="_BLANK" href={FILE_URL + record.url}>
                                                         {record.doc_number}
@@ -102,7 +108,7 @@ const DPub = ({ linkGroupLists }) => {
                                                             </span>
                                                         </Link>
                                                     </div>
-                                            }
+                                            } */}
                                         </div>
 
                                     )
@@ -110,12 +116,13 @@ const DPub = ({ linkGroupLists }) => {
 
                             },
                         ]}
-                        dataSource={searchpub && searchpub.map(item => {
-                            return {
-                                ...item,
-                                created_At: moment(item.createdAt).format('LL')
-                            }
-                        })}
+                        dataSource={searchpub && searchpub.filter(item => item.access_type === "PUBLIC" ||
+                            item.access_type === "PROTECTED" && authUser).map(item => {
+                                return {
+                                    ...item,
+                                    created_At: moment(item.createdAt).format('LL')
+                                }
+                            })}
                     />
                 </Col>
             </Row>

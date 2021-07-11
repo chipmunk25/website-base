@@ -92,7 +92,7 @@ const webpages = (state = INIT_STATE, action) => {
         case SUCCESS_DELETE_LINKGROUP:
             return {
                 ...state,
-                linkGroupLists: state.linkGroupLists.filter((item) => parseInt(item.id) !== parseInt(action.payload.id)),
+                linkGroupLists: state.linkGroupLists.filter((item) => parseInt(item.id) !== parseInt(action.payload)),
             };
 
         case SUCCESS_GET_USEFULLINKS:
@@ -114,7 +114,7 @@ const webpages = (state = INIT_STATE, action) => {
         case SUCCESS_DELETE_USEFULLINKS:
             return {
                 ...state,
-                usefulLinkLists: state.usefulLinkLists.filter((item) => parseInt(item.id) !== parseInt(action.payload.id)),
+                usefulLinkLists: state.usefulLinkLists.filter((item) => parseInt(item.id) !== parseInt(action.payload)),
             };
 
         case SUCCESS_GET_PUBLICATION:
@@ -144,7 +144,7 @@ const webpages = (state = INIT_STATE, action) => {
         case SUCCESS_DELETE_PUBLICATION:
             return {
                 ...state,
-                publicationLists: state.publicationLists.filter((item) => parseInt(item.id) !== parseInt(action.payload.id)),
+                publicationLists: state.publicationLists.filter((item) => parseInt(item.id) !== parseInt(action.payload)),
             };
 
 
@@ -176,7 +176,7 @@ const webpages = (state = INIT_STATE, action) => {
         case SUCCESS_DELETE_MEMBER:
             return {
                 ...state,
-                memberLists: state.memberLists.filter((item) => parseInt(item.id) !== parseInt(action.payload.id)),
+                memberLists: state.memberLists.filter((item) => parseInt(item.id) !== parseInt(action.payload)),
             };
 
         case SUCCESS_GET_SIMPLECHANGE:
@@ -206,7 +206,7 @@ const webpages = (state = INIT_STATE, action) => {
         case SUCCESS_DELETE_SIMPLECHANGE:
             return {
                 ...state,
-                simplechangeLists: state.simplechangeLists.filter((item) => parseInt(item.id) !== parseInt(action.payload.id)),
+                simplechangeLists: state.simplechangeLists.filter((item) => parseInt(item.id) !== parseInt(action.payload)),
             };
 
         default:

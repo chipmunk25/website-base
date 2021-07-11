@@ -36,12 +36,6 @@ const Create = ({ onFinish, onFinishFailed, hideModalLoader, onEditorStateChange
                         >
                             <Input placeholder="Title" allowClear />
                         </Form.Item>
-
-                      {/*   <Form.Item label="Description" name="description"
-                            rules={[{ required: true, message: 'Please Enter Description', },]}
-                        >
-                            <Input placeholder="Description" allowClear />
-                        </Form.Item> */}
                         <Form.Item label="Page Type" name="page_type"
                             rules={[{ required: true, message: 'Please Enter Page Type', },]}
                         >
@@ -63,7 +57,7 @@ const Create = ({ onFinish, onFinishFailed, hideModalLoader, onEditorStateChange
                             onEditorStateChange={onEditorStateChange}
                         />
                         <textarea style={{ width: '100%', height: 200 }}
-                           // disabled
+                            disabled
                             value={ConvertToText(state.description)}
                         />
                     </Col>

@@ -1,5 +1,8 @@
-import React from "react"
+import React, { useState, useEffect } from "react";
 
+import * as arrayPaginate from "array-paginate"
+
+import { Col, Pagination, Row } from "antd";
 import { Tree } from 'antd';
 const { DirectoryTree } = Tree;
 const TreePub = ({ linkGroupLists, setPub, setPubTitle }) => {
@@ -11,6 +14,25 @@ const TreePub = ({ linkGroupLists, setPub, setPubTitle }) => {
     const onExpand = () => {
         console.log('Trigger Expand');
     };
+    const [state, setState] = useState({
+        pageSize: 10,
+        rowHits: linkGroupLists,
+        defaultPageSize: 10,
+        defaultCurrent: 1,
+        prevPageNumber: 0,
+    })
+    useEffect(() => {
+        setState({ ...state, rowHits: linkGroupLists.filter(item => item.publication_ms.length > 0) })
+    }, [linkGroupLists])
+
+
+    const onChange = pageNumber => {
+        setState({
+            ...state,
+            prevPageNumber: pageNumber
+        })
+    }
+
 
     return (
         <div className="blog">
@@ -22,7 +44,7 @@ const TreePub = ({ linkGroupLists, setPub, setPubTitle }) => {
                         defaultExpandAll
                         onSelect={onSelect}
                         onExpand={onExpand}
-                        treeData={linkGroupLists && linkGroupLists.map(item => {
+                        treeData={state.rowHits.length > 0 && arrayPaginate(state.rowHits, state.prevPageNumber, state.pageSize).docs.map(item => {
                             return {
                                 ...item,
                                 key: item.id
@@ -31,60 +53,17 @@ const TreePub = ({ linkGroupLists, setPub, setPubTitle }) => {
                     />
 
                 </div>
+                <Row justify="center" style={{ fontSize: 14 }}>
+                    <Col span={24}>
+                        <Pagination showQuickJumper defaultCurrent={state.defaultCurrent} pageSize={state.pageSize}
+                            defaultPageSize={state.defaultPageSize} total={state.rowHits.length} onChange={onChange}
+                        />
+                    </Col>
+                </Row>
             </div>
         </div>
     )
 }
 
-const treeData = [
-    { title: 'PUBLIC', key: 'public', },
-    { title: 'PROTECTED', key: 'protected', },
-]
-
-/* 
-treeData && treeData.map(item => {
-                    const children = linkGroupLists.filter(link => link.access_type === item.title)
-                    console.log(item, linkGroupLists, children)
-                    return {
-                        ...item,
-                        key: item.id,
-                        children
-                    }
-                })
-*/
-const treeData2 = [
-    {
-        title: 'parent 0',
-        key: '0-0',
-        children: [
-            {
-                title: 'leaf 0-0',
-                key: '0-0-0',
-                isLeaf: true,
-            },
-            {
-                title: 'leaf 0-1',
-                key: '0-0-1',
-                isLeaf: true,
-            },
-        ],
-    },
-    {
-        title: 'parent 1',
-        key: '0-1',
-        children: [
-            {
-                title: 'leaf 1-0',
-                key: '0-1-0',
-                isLeaf: true,
-            },
-            {
-                title: 'leaf 1-1',
-                key: '0-1-1',
-                isLeaf: true,
-            },
-        ],
-    },
-];
 
 export default TreePub

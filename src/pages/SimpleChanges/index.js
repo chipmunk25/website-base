@@ -15,9 +15,10 @@ import { showAuthLoader, hideAuthLoader, showModal, hideModal } from "appRedux/a
 import { requestGetSimpleChange, requestSaveSimpleChange, requestUpdateSimpleChange, requestDeleteSimpleChange } from "appRedux/actions/webpage"
 
 import {
-    EditorState,convertToRaw
+    EditorState, convertToRaw
 } from "draft-js";
 
+import ConvertFromHTMLtoTEXT from "utils/ConvertHTMLtoText"
 import draftToHtml from "draftjs-to-html";
 import FuzzySearch from 'fuzzy-search';
 let searcher;
@@ -50,7 +51,11 @@ const SimpleChanges = () => {
     const CloseModal = () => dispatch(hideModal())
     const hideModalLoader = () => dispatch(hideAuthLoader())
     const EditDataHandler = record => {
+     //   console.log(record)
         setModalType("EDIT")
+        const description = ConvertFromHTMLtoTEXT(JSON.parse(record.description))
+        //  console.log(description)
+        setState({ ...state, description, })
         setDetail(record)
         LoadNShowModal()
     }
@@ -62,6 +67,7 @@ const SimpleChanges = () => {
     }
 
     const AddNewHandler = () => {
+        setState({ ...state, description: EditorState.createEmpty() })
         setModalType("ADD")
         LoadNShowModal()
     }
@@ -73,7 +79,7 @@ const SimpleChanges = () => {
             description: JSON.stringify(ConvertToText(state.description)),
             ...record
         }
-    //    console.log(data)
+        //    console.log(data)
         dispatch(showAuthLoader())
         dispatch(requestSaveSimpleChange(data))
     }
@@ -81,10 +87,11 @@ const SimpleChanges = () => {
         const data = {
             ...detail,
             ...record,
+            description: JSON.stringify(ConvertToText(state.description)),
             id: detail.id,
         }
         dispatch(showAuthLoader())
-        dispatch(requestUpdateSimpleChange(data))
+        dispatch(requestSaveSimpleChange(data))
     }
 
     const ValidationAlert = errorInfo => {
@@ -111,7 +118,9 @@ const SimpleChanges = () => {
                     <div>
                         <LoadingProgress loading={loader} />
                         {modalType === "EDIT" ?
-                            <Edit detail={detail} onFinish={UpdateHandler} hideModalLoader={hideModalLoader} onFinishFailed={ValidationAlert} />
+                            <Edit detail={detail} onFinish={UpdateHandler} hideModalLoader={hideModalLoader}
+                                onEditorStateChange={onEditorStateChange} state={state}
+                                onFinishFailed={ValidationAlert} />
                             :
                             <Create onFinish={SaveHandler} hideModalLoader={hideModalLoader}
                                 onEditorStateChange={onEditorStateChange} state={state}

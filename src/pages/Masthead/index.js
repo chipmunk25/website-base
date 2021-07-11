@@ -86,7 +86,6 @@ const Masthead = () => {
                         </Col>
                         <Col span={12}>
                             <Form.Item label="Subtitle" name="subtitle"
-                                rules={[{ required: true, message: 'Please Enter Subtitle', },]}
                             >
                                 <Input placeholder="Subtitle" allowClear />
                             </Form.Item>

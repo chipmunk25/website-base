@@ -5,6 +5,7 @@ import { RenderPage } from "utils/page"
 import { useSelector } from 'react-redux';
 import DisplayMembers from './DisplayMembers';
 
+import { Markup } from 'interweave';
 import FuzzySearch from 'fuzzy-search';
 import { FILE_URL } from "appRedux/api/root"
 let searcher;
@@ -21,7 +22,7 @@ const AppServices = () => {
     const OnSearch = (e) => setDataSource(searcher.search(e.target.value))
 
     return (
-        <section id="membership" className=" section services">
+        <section id="members" className=" section services">
 
             <div className="container" data-aos="fade-up">
 
@@ -31,7 +32,10 @@ const AppServices = () => {
                 <div className="row gy-4">
                     <div className="col-lg-2"></div>
                     <div className="col-lg-8 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="200">
-                        <p>{RenderPage(simplechangeLists, "members") ? RenderPage(simplechangeLists, "members").description : ""}</p>
+                        <p>{RenderPage(simplechangeLists, "members") ? 
+                       // RenderPage(simplechangeLists, "members").description 
+                       <Markup content={JSON.parse(RenderPage(simplechangeLists, "members").description)} />
+                        : ""}</p>
                     </div>
                     <div className="col-lg-2"></div>
                 </div>

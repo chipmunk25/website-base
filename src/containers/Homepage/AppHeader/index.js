@@ -54,8 +54,8 @@ const AppHeader = () => {
             case "about":
                 setActive("about")
                 break
-            case "membership":
-                setActive("membership")
+            case "members":
+                setActive("members")
                 break
             case "publications":
                 setActive("publications")
@@ -82,9 +82,9 @@ const AppHeader = () => {
                 <nav id="navbar" className={isToggled ? "navbar navbar-mobile" : "navbar"}>
                     {/* <ul>
                            <li><a className="nav-link scrollto active" href="#hero">Home</a></li> */}
-                    <Scrollspy items={['about', 'membership', 'publications', 'usefullinks']} currentClassName="active">
+                    <Scrollspy items={['about', 'members', 'publications', 'usefullinks']} currentClassName="active">
                         <li onClick={() => closeHandler("about")}><a className={`nav-link scrollto ${isActive === "about" ? "active" : ""} `} href="#about">About</a></li>
-                        <li onClick={() => closeHandler("membership")}><a className={`nav-link scrollto ${isActive === "membership" ? "active" : ""} `} href="#membership">Members</a></li>
+                        <li onClick={() => closeHandler("members")}><a className={`nav-link scrollto ${isActive === "members" ? "active" : ""} `} href="#members">Members</a></li>
                         <li onClick={() => closeHandler("publications")}><a className={`nav-link scrollto ${isActive === "publications" ? "active" : ""} `} href="#publications">Publications</a></li>
                         <li onClick={() => closeHandler("usefullinks")}><a className={`nav-link scrollto ${isActive === "usefullinks" ? "active" : ""} `} href="#usefullinks">Useful Links</a></li>
                         {authUser ?

@@ -5,9 +5,10 @@ import { Card, Form, Input, Row, Col, Button } from "antd";
 import { SaveOutlined } from "@ant-design/icons"
 
 
-import { convertToRaw, 
-     EditorState, 
-     } from "draft-js";
+import {
+    convertToRaw,
+    EditorState,
+} from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import draftToHtml from "draftjs-to-html";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
@@ -47,7 +48,7 @@ const About = () => {
 
     useEffect(() => {
         const detail = aboutLists[0]
-        //  console.log(detail)
+          //console.log(detail)
         if (detail) {
             const description = ConvertFromHTMLtoTEXT(JSON.parse(detail.description))
             form.setFieldsValue({
@@ -67,7 +68,7 @@ const About = () => {
             del_flg: 0, created_user: authUser,
             company_id: user.company_id, group_name: 'about'
         }
-      //  console.log(data)
+        //  console.log(data)
         dispatch(showAuthLoader())
         dispatch(requestSaveAbout(data))
 
@@ -88,7 +89,6 @@ const About = () => {
                         </Col>
                         <Col span={12}>
                             <Form.Item label="Subtitle" name="subtitle"
-                                rules={[{ required: true, message: 'Please Enter Subtitle', },]}
                             >
                                 <Input placeholder="Subtitle" allowClear />
                             </Form.Item>
