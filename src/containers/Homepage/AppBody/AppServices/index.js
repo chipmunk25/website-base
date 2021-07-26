@@ -21,6 +21,7 @@ const AppServices = () => {
     }, [memberLists])
     const OnSearch = (e) => setDataSource(searcher.search(e.target.value))
 
+ 
     return (
         <section id="members" className=" section services">
 
@@ -31,12 +32,11 @@ const AppServices = () => {
                 </header>
                 <div className="row gy-4">
                     <div className="col-lg-2"></div>
-                    <div className="col-lg-8 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="200">
-                        <p>{RenderPage(simplechangeLists, "members") ? 
-                       // RenderPage(simplechangeLists, "members").description 
-                       <Markup content={JSON.parse(RenderPage(simplechangeLists, "members").description)} />
-                        : ""}</p>
-                    </div>
+                     <div className="col-lg-8 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="200">
+                        <p>{RenderPage(simplechangeLists, "members") ?
+                            <Markup content={JSON.parse(RenderPage(simplechangeLists, "members").description)} />
+                            : ""}</p>
+                    </div> 
                     <div className="col-lg-2"></div>
                 </div>
                 <div className="clients-slider swiper-container">
@@ -50,23 +50,48 @@ const AppServices = () => {
                             dataSource={dataSource}
                             columns={[
                                 {
+                                    title: "Members Details",
+                                    render: (record) => (
+                                        <React.Fragment>
+                                            {record.id}
+                                            <br />
+                                            {record.title}
+                                            <br />
+                                            {record.description}
+                                            <br />
+                                            <img
+                                                src={FILE_URL + "/" + record.logo}
+                                                style={{ height: 30, width: 70 }}
+                                            //size="large"
+                                            />
+                                            <br />
+                                            {record.url}
+                                        </React.Fragment>
+                                    ),
+                                    responsive: ["xs"]
+                                },
+                                {
                                     title: 'ID',
                                     dataIndex: 'id',
                                     key: 'id',
                                     width: 70,
                                     fixed: 'left',
+                                    responsive: ['lg', 'md', 'sm'],
                                 }, {
                                     title: 'Title',
                                     dataIndex: 'title',
                                     key: 'title',
+                                    responsive: ['lg', 'md', 'sm'],
                                 }, {
                                     title: 'Description',
                                     dataIndex: 'description',
                                     key: 'description',
+                                    responsive: ['lg', 'md', 'sm'],
                                 }, {
                                     title: 'Logo',
                                     dataIndex: 'logo',
                                     key: 'logo',
+                                    responsive: ['lg', 'md', 'sm'],
                                     render: logo => (
                                         <img
                                             src={FILE_URL + "/" + logo}
@@ -78,6 +103,7 @@ const AppServices = () => {
                                     title: 'Url',
                                     dataIndex: 'url',
                                     key: 'url',
+                                    responsive: ['lg', 'md', 'sm'],
                                 },
 
                             ]}

@@ -18,21 +18,23 @@ const Create = ({ onFinish, onFinishFailed, hideModalLoader, linkGroupLists, set
     }, [])
 
     const onChange = (value, text) => {
-      //  console.log(value, text)
+        //  console.log(value, text)
         setState({ ...state, group_name: text.children })
     }
+
+   
     return (
         <div>
             <Form name="Add" onFinish={onFinish} onFinishFailed={onFinishFailed} size="large"
                 labelCol={{ span: 6, }} wrapperCol={{ span: 16, }}>
-               
+
                 <Form.Item label="Title" name="title"
-                   
+
                 >
                     <Input placeholder="Title" allowClear />
                 </Form.Item>
 
-               
+
                 <Form.Item label="Description" name="description"
                 >
                     <Input placeholder="Description" allowClear />

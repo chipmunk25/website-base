@@ -8,17 +8,19 @@ const ImageUpload = ({ imageChange, image_title }) => {
 
     const props = {
         name: 'file',
-        customRequest({ file, onSuccess }) {
+        customRequest({ file, onSuccess, onError }) {
             setTimeout(() => {
-                onSuccess('ok');
+                const isJpgOrPng = file.type === 'application/octet-stream' || file.type === '';
+                if (isJpgOrPng) {
+                    message.error('You cannot upload such files!');
+                    onError("error")
+                    return;
+                } else {
+                    onSuccess('ok');
+                }
             }, 0);
         },
         beforeUpload(file) {
-          /*   const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'video/mp4';
-            if (!isJpgOrPng) {
-                message.error('You can only upload JPG/PNG/mp4 file!');
-                //  return;
-            } */
             const isLt2M = file.size / 100024 / 100024 < 2;
 
             if (!isLt2M) {
@@ -27,7 +29,7 @@ const ImageUpload = ({ imageChange, image_title }) => {
                 // return;
             }
             //  SetFileSize(false);isJpgOrPng &&
-            return  isLt2M;
+            return isLt2M;
         },
         onChange(info) {
             if (info.file.status !== 'uploading') {

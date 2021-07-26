@@ -359,6 +359,7 @@ function* DeleteMemberHandler({ payload }) {
 
 function* GetSimpleChangeHandler({ payload }) {
     const res = yield call(getSimpleChangeFromApi, sessionStorage.getItem('token'), payload)
+  //  console.log(res)
     yield put(hideAuthLoader())
     if (res.status === 200) {
         yield put(successGetSimpleChange({ simplechangeLists: res.data.result }))

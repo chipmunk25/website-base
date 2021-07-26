@@ -14,8 +14,8 @@ const AppFooter = () => {
                     <div className="row gy-4">
                         <div className="col-lg-5 col-md-12 footer-info">
                             <a href="index.html" className="logo d-flex align-items-center">
-                                <img src={logo} alt="" />
-                                <span>UKEXABG </span>
+                                <img src={logo} alt="UKEXABG" />
+                                {/* <span>UKEXABG </span> */}
                             </a>
                             {aboutLists && aboutLists.map(item => (<Markup key={item.id} content={JSON.parse(item.description)} />))}
                             {/* <div className="social-links mt-3">
@@ -69,7 +69,7 @@ const AppFooter = () => {
 
             <div className="container">
                 <div className="copyright">
-                    &copy;  <strong><span>UKEXABG </span></strong>. All Rights Reserved </div>
+                    &copy; <strong><span>UKEXABG </span></strong>. All Rights Reserved </div>
                 <div className="credits">
                     Developed by <a href="https://chipsoftgh.com/">chipsoftgh</a>
                 </div>

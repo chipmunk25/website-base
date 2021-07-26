@@ -75,8 +75,8 @@ const AppHeader = () => {
         <header id="header" className={isSticky ? "header fixed-top header-scrolled" : "header fixed-top"} ref={ref}>
             <div className="container-fluid container-xl d-flex align-items-center justify-content-between">
                 <a href="#home" className="logo d-flex align-items-center">
-                    <img src={logo} alt="" />
-                    <span>UKEXABG </span>
+                    <img src={logo} alt="UKEXABG" />
+                  {/*   <span>UKEXABG </span> */}
                 </a>
 
                 <nav id="navbar" className={isToggled ? "navbar navbar-mobile" : "navbar"}>
