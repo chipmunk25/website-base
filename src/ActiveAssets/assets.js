@@ -1,7 +1,7 @@
 
 import h_logo from "assets/img/logo.png"
-import h_logo_sidebar from "assets/img/logo.png"
-import h_logo_header from "assets/img/logo.png"
+import h_logo_sidebar from "assets/img/logo_header.png"
+import h_logo_header from "assets/img/logo_header.png"
 
 import d_logo from "assets/img/logo.png"
 import d_logo_sidebar from "assets/img/logo.png"

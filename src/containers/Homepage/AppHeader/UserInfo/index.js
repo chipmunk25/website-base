@@ -26,7 +26,7 @@ const UserInfo = ({ width }) => {
       </div>
       <ul className="gx-user-popover">
         <li>  <Link to="/profile"> Edit Profile</Link> </li>
-        <li>  <Link to="/forgot"> Change Password</Link> </li>
+        <li>  <Link to="/chg"> Change Password</Link> </li>
         <li onClick={handleLogout}>Logout </li>
       </ul>
     </div>

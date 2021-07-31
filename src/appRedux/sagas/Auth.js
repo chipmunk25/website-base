@@ -121,6 +121,7 @@ function* UpdateExistUser(data) {
 
 function* UpdateUserInfoHandler({ payload }) {
     const res = yield call(UpdateExistUser, payload)
+ //   console.log(res)
     yield put(hideAuthLoader())
     if (res.status === 201) {
         if (parseInt(res.data.user.id) === parseInt(sessionStorage.getItem('user_id'))) {
@@ -138,9 +139,10 @@ function* UpdateUserInfoHandler({ payload }) {
 
 function* UpdateUsersInfoHandler({ payload }) {
     const res = yield call(UpdateExistUser, payload)
+   // console.log(res)
     yield put(hideAuthLoader())
     if (res.status === 201) {
-        yield put(successUpdateUsers(res.data.result))
+        yield put(successUpdateUsers(res.data.user))
         openNotificationWithIcon("success", 'Success', 'Record Saved Successfully')
         yield put(hideModal())
     }

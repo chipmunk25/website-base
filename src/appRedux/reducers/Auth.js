@@ -2,7 +2,7 @@ import {
     SIGNIN_USER_SUCCESS, INIT_URL, SIGNOUT_USER_SUCCESS, SUCCESS_UPDATEUSER, SUCCESS_GET_BRANCH, SUCCESS_GET_ROLE, SUCCESS_GET_USERS,
     SUCCESS_SAVE_BRANCH, SUCCESS_UPDATE_BRANCH, SUCCESS_DELETE_BRANCH, SUCCESS_SAVE_USER, SUCCESS_DELETE_USER, SUCCESS_UPDATEUSERS,
     SUCCESS_SMSBAL, SUCCESS_SAVE_ROLE, SUCCESS_UPDATE_ROLE, SUCCESS_DELETE_ROLE, SUCCESS_GET_PERMISSION, SUCCESS_SAVE_PERMISSION,
-    SUCCESS_UPDATE_PERMISSION, SUCCESS_DELETE_PERMISSION,GHOST_TO_SUCCESS,
+    SUCCESS_UPDATE_PERMISSION, SUCCESS_DELETE_PERMISSION, GHOST_TO_SUCCESS,
 } from "../actions/constants"
 const INIT_STATE = {
     initURL: '',
@@ -34,7 +34,7 @@ const Auth = (state = INIT_STATE, action) => {
                 initURL: action.payload
             }
         }
- case GHOST_TO_SUCCESS: {
+        case GHOST_TO_SUCCESS: {
             return {
                 ...state,
                 user: action.payload.user
@@ -50,10 +50,11 @@ const Auth = (state = INIT_STATE, action) => {
             }
         }
         case SUCCESS_UPDATEUSERS: {
+
             index = state.userLists.indexOf(state.userLists.find(item => parseInt(action.payload.id) === parseInt(item.id)));
             newlist = [...state.userLists];
             if (index > -1) {
-                newlist[index] = action.payload;
+                newlist[index] = { ...action.payload };
             }
             return { ...state, userLists: newlist }
 

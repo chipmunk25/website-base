@@ -1,11 +1,11 @@
 {
     "icons": [{
-        "login_logo": "h_logo.png",
-        "sidebar_logo": "h_logo_sidebar.png",
-        "header_logo": "h_logo_header.png",
+        "login_logo": "logo.png",
+        "sidebar_logo": "logo_header.png",
+        "header_logo": "logo_header.png",
         "report_logo": "../images/h_logo_header.png",
         "active": true,
-        "company": "Hyperbuild"
+        "company": "UKEXABG"
     }]
 
 

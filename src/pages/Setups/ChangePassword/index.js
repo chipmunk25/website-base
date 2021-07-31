@@ -1,6 +1,6 @@
 import React from 'react';
-import { Row, Col, Form, Input, Button } from 'antd'
 import Widget from 'components/Widget';
+import { Row, Col, Form, Input, Button } from 'antd'
 
 import { useDispatch, useSelector } from "react-redux";
 

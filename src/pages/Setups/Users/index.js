@@ -14,7 +14,7 @@ import Edit from "./Edit"
 import moment from "moment"
 import { showAuthLoader, hideAuthLoader, showModal, hideModal } from "appRedux/actions/common"
 import {
-    requestGetUsers,  requestGetRole,
+    requestGetUsers, requestGetRole,
     requestSaveUser, requestUpdateUsers, requestDeleteUser
 } from "appRedux/actions/auth"
 
@@ -27,7 +27,7 @@ const Branch = () => {
     const [modalType, setModalType] = useState(false)
     const [detail, setDetail] = useState({})
     const { modal, loader } = useSelector(({ common }) => common);
-    const { authUser, user, userLists,  roleLists, userStatusLists } = useSelector(({ auth }) => auth);
+    const { authUser, user, userLists, roleLists, userStatusLists } = useSelector(({ auth }) => auth);
 
     const LoadNShowModal = () => {
         dispatch(showAuthLoader())
@@ -45,13 +45,13 @@ const Branch = () => {
     useEffect(() => {
         dispatch(requestGetUsers({ del_flg: 0, company_id: user.company_id, }))
     }, [])
-  
+
     useEffect(() => {
         dispatch(requestGetRole({ del_flg: 0, company_id: user.company_id, }))
     }, [])
 
-    const DeleteHandler  = async record => {
-           dispatch(showAuthLoader())
+    const DeleteHandler = async record => {
+        dispatch(showAuthLoader())
         dispatch(requestDeleteUser(record))
     }
     const AddNewHandler = () => {
@@ -69,10 +69,11 @@ const Branch = () => {
         dispatch(requestSaveUser(data))
     }
     const UpdateHandler = async (record) => {
-      
+
         const data = {
             ...detail,
             ...record,
+            role: FindName(roleLists, record.role_id).role_name,
             id: detail.id,
 
         }
@@ -103,11 +104,11 @@ const Branch = () => {
                         <LoadingProgress loading={loader} />
                         {modalType ?
                             <Edit detail={detail} onFinish={UpdateHandler}
-                                 roleLists={roleLists} userStatusLists={userStatusLists}
+                                roleLists={roleLists} userStatusLists={userStatusLists}
                                 hideModalLoader={hideModalLoader} onFinishFailed={ValidationAlert} />
                             :
                             <Create onFinish={SaveHandler}
-                                 roleLists={roleLists} userStatusLists={userStatusLists}
+                                roleLists={roleLists} userStatusLists={userStatusLists}
                                 hideModalLoader={hideModalLoader} onFinishFailed={ValidationAlert} />
                         }
                     </div>
@@ -124,9 +125,7 @@ const Branch = () => {
                 dataSource={dataSource.map(item => {
                     return {
                         ...item,
-                        role: item.role_m ? item.role_m.role_name : FindName(roleLists, item.role_id).role_name,
-                     
-                        
+                        role: item.role ? item.role : item.role_m ? item.role_m.role_name : FindName(roleLists, item.role_id).role_name,
                     }
                 })}
                 AddNewHandler={AddNewHandler}
@@ -176,7 +175,7 @@ const Branch = () => {
                                             <Menu.Item key="1">
                                                 <span className="gx-text-blue" onClick={() => EditDataHandler(record)}>
                                                     <EditOutlined /> Edit
-                                            </span>
+                                                </span>
                                             </Menu.Item>
                                             <Menu.Item key="2">
                                                 <Popconfirm
@@ -189,7 +188,7 @@ const Branch = () => {
                                                 >
                                                     <span className="gx-text-red" >
                                                         <DeleteOutlined /> Delete
-                                            </span>
+                                                    </span>
                                                 </Popconfirm></Menu.Item>
                                         </Menu>)
                                     } placement="bottomRight" trigger={['click']}>
