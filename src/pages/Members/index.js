@@ -61,7 +61,7 @@ const Members = () => {
     }
 
     const SaveHandler = async (record) => {
-        console.log(state)
+        // console.log(state)
         const data = {
             company_id: user.company_id,
             created_user: authUser,
@@ -70,9 +70,9 @@ const Members = () => {
             ...state
         }
 
-        //  dispatch(showAuthLoader())
-        //  dispatch(requestSaveMember(data))
-        //  ResetPage()
+        dispatch(showAuthLoader())
+        dispatch(requestSaveMember(data))
+        ResetPage()
     }
     const UpdateHandler = async (record) => {
         const data = {
@@ -151,7 +151,7 @@ const Members = () => {
                         dataIndex: 'title',
                         key: 'title',
                     }, {
-                        title: 'Description',
+                        title: 'Contact Details',
                         dataIndex: 'description',
                         key: 'description',
                     }, {

@@ -28,14 +28,14 @@ const AppServices = () => {
             <div className="container" data-aos="fade-up">
 
                 <header className="section-header">
-                    <p>{RenderPage(simplechangeLists, "members") ? RenderPage(simplechangeLists, "members").title : ""}</p>
+                    <div>{RenderPage(simplechangeLists, "members") ? RenderPage(simplechangeLists, "members").title : ""}</div>
                 </header>
                 <div className="row gy-4">
                     <div className="col-lg-2"></div>
                     <div className="col-lg-8 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="200">
-                        <p>{RenderPage(simplechangeLists, "members") ?
+                        <div>{RenderPage(simplechangeLists, "members") ?
                             <Markup content={JSON.parse(RenderPage(simplechangeLists, "members").description)} />
-                            : ""}</p>
+                            : ""}</div>
                     </div>
                     <div className="col-lg-2"></div>
                 </div>
@@ -103,7 +103,7 @@ const AppServices = () => {
                                         <a target="_BLANK" href={url}>{url}</a>
                                     )
                                 }, {
-                                    title: 'Description',
+                                    title: 'Contact Details',
                                     dataIndex: 'description',
                                     key: 'description',
                                     responsive: ['lg', 'md', 'sm'],

@@ -17,7 +17,7 @@ const AppFooter = () => {
                                 <img src={logo} alt="UKEXABG" />
                                 {/* <span>UKEXABG </span> */}
                             </a>
-                            {aboutLists && aboutLists.map(item => (<Markup key={item.id} content={JSON.parse(item.description)} />))}
+                            { aboutLists?.map(item => (<Markup key={item.id} content={JSON.parse(item.description)} />))}
                             {/* <div className="social-links mt-3">
                                 <a href="#" className="twitter"><i className="bi bi-twitter"></i></a>
                                 <a href="#" className="facebook"><i className="bi bi-facebook"></i></a>

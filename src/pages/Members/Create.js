@@ -8,6 +8,8 @@ const tailLayout = {
         span: 12,
     },
 };
+
+const { TextArea } = Input;
 const { Option } = Select;
 const Create = ({ onFinish, onFinishFailed, hideModalLoader, linkGroupLists, setState, state }) => {
     useEffect(() => {
@@ -22,7 +24,7 @@ const Create = ({ onFinish, onFinishFailed, hideModalLoader, linkGroupLists, set
         setState({ ...state, group_name: text.children })
     }
 
-   
+
     return (
         <div>
             <Form name="Add" onFinish={onFinish} onFinishFailed={onFinishFailed} size="large"
@@ -35,9 +37,13 @@ const Create = ({ onFinish, onFinishFailed, hideModalLoader, linkGroupLists, set
                 </Form.Item>
 
 
-                <Form.Item label="Description" name="description"
+                <Form.Item label="Contact Details" name="description"
                 >
-                    <Input placeholder="Description" allowClear />
+                    <TextArea
+                        placeholder="Contact Details"
+                        autoSize={{ minRows: 2, }}
+                        allowClear
+                    />
                 </Form.Item>
                 <Form.Item label="Url" name="url"
                     rules={[{ required: true, message: 'Please Enter Url', },]}

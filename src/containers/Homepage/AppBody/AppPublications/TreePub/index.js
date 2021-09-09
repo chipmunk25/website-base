@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 
 import * as arrayPaginate from "array-paginate"
-
 import { Col, Pagination, Row } from "antd";
 import { Tree } from 'antd';
+import { useSelector } from "react-redux"
 const { DirectoryTree } = Tree;
 const TreePub = ({ linkGroupLists, setPub, setPubTitle }) => {
+
+    const { authUser, } = useSelector(({ auth }) => auth);
     const onSelect = (keys, info) => {
         setPub(info.node.publication_ms)
         setPubTitle(info.node.title)
@@ -16,13 +18,17 @@ const TreePub = ({ linkGroupLists, setPub, setPubTitle }) => {
     };
     const [state, setState] = useState({
         pageSize: 10,
-        rowHits: linkGroupLists,
+        rowHits: [],
         defaultPageSize: 10,
         defaultCurrent: 1,
         prevPageNumber: 0,
     })
     useEffect(() => {
-        setState({ ...state, rowHits: linkGroupLists.filter(item => item.publication_ms.length > 0) })
+        setState({
+            ...state, rowHits: linkGroupLists.filter(item => item.publication_ms.filter(item => item.access_type === "PUBLIC" ||
+                item.access_type === "PROTECTED" && authUser).length > 0)
+        })
+
     }, [linkGroupLists])
 
 
@@ -32,7 +38,6 @@ const TreePub = ({ linkGroupLists, setPub, setPubTitle }) => {
             prevPageNumber: pageNumber
         })
     }
-
 
     return (
         <div className="blog">

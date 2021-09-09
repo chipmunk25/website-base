@@ -9,16 +9,16 @@ const tailLayout = {
         span: 12,
     },
 };
+
+const { TextArea } = Input;
 const { Option } = Select;
 const Edit = ({ detail, onFinish, onFinishFailed, hideModalLoader, linkGroupLists, setState, state }) => {
     const [form] = Form.useForm();
     useEffect(() => {
         form.setFieldsValue({
             title: detail.title,
-
             description: detail.description,
             url: detail.url,
-
         });
 
 
@@ -39,9 +39,13 @@ const Edit = ({ detail, onFinish, onFinishFailed, hideModalLoader, linkGroupList
                 </Form.Item>
 
 
-                <Form.Item label="Description" name="description"
+                <Form.Item label="Contact Details" name="description"
                 >
-                    <Input placeholder="Description" allowClear />
+                    <TextArea
+                        placeholder="Contact Details"
+                        autoSize={{ minRows: 2, }}
+                        allowClear
+                    />
                 </Form.Item>
                 <Form.Item label="Url" name="url"
                     rules={[{ required: true, message: 'Please Enter Url', },]}

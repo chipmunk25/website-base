@@ -21,7 +21,7 @@ const Masthead = () => {
         <section id="home" className=" section hero d-flex align-items-center">
             <div className="container">
                 {
-                    mastheadLists && mastheadLists.map(item => (
+                     mastheadLists?.map(item => (
                         <div className="row" key={item.id}>
                             <div className="col-lg-6 d-flex flex-column justify-content-center masthead-description">
                                 <h1 data-aos="fade-up">{item.title}</h1>

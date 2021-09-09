@@ -32,10 +32,10 @@ const ImageUpload = ({ imageChange, image_title }) => {
         },
         onChange(info) {
             if (info.file.status !== 'uploading') {
-                console.log(info.file, info.fileList);
+           //     console.log(info.file, info.fileList);
             }
             if (info.file.status === 'done') {
-                console.log(info)
+              //  console.log(info)
                 imageChange(info)
                 message.success(`${info.file.name} file uploaded successfully`);
             } else if (info.file.status === 'error') {
