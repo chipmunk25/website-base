@@ -15,6 +15,7 @@ const DisplayMembers = (props) => {
                 <Table
                     className="table table-striped-rows"
                     size="small"
+                    pagination={{ pageSize: 50 }}
                     {...props}
                 />
             </div>
